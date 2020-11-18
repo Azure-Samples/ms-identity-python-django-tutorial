@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+<<<<<<< HEAD
 from . import views
 from my_tenant.msal_middleware import config
 
@@ -24,4 +25,10 @@ urlpatterns = [
     path('sign_in_status', views.index, name='status'),
     path('token_details', views.token_details, name='token_details'),
     path(f'{config.django.auth_endpoints.prefix}/', include('my_tenant.urls')),
+=======
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('my_tenant/', include('my_tenant.urls'))
+>>>>>>> code complete, needs auth_verifier+move adapter to common lib
 ]
