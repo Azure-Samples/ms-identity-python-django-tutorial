@@ -196,7 +196,7 @@ Function ConfigureApplications
    # create the application 
    $webAppAadApplication = New-AzureADApplication -DisplayName "python-django-webapp-call-graph" `
                                                   -HomePage "http://localhost:8000" `
-                                                  -ReplyUrls "http://localhost:8000/auth/redirect" `
+                                                  -ReplyUrls "http://localhost:8000/auth/aad_redirect" `
                                                   -IdentifierUris "https://$tenantName/python-django-webapp-call-graph" `
                                                   -PasswordCredentials $key `
                                                   -PublicClient $False
