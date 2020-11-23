@@ -96,7 +96,8 @@ or download and extract the repository .zip file.
 - In Windows via PowerShell:
 
 ```PowerShell
-  cd <project-root-directory> # the folder into which you cloned the code
+  cd <project-root-directory> #the folder into which you cloned the code
+  python3 -m venv venv # only required if you don't have a venv already
   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force
   . .\venv\Scripts\Activate.ps1
   pip install -r requirements.txt
