@@ -187,17 +187,17 @@ Function ConfigureApplications
     $user = Get-AzureADUser -ObjectId $creds.Account.Id
 
    # Create the webApp AAD application
-   Write-Host "Creating the AAD application (python-django-webapp-auth-my-tenant)"
+   Write-Host "Creating the AAD application (python-django-webapp-call-graph)"
    # Get a 2 years application key for the webApp Application
    $pw = ComputePassword
    $fromDate = [DateTime]::Now;
    $key = CreateAppKey -fromDate $fromDate -durationInYears 2 -pw $pw
    $webAppAppKey = $pw
    # create the application 
-   $webAppAadApplication = New-AzureADApplication -DisplayName "python-django-webapp-auth-my-tenant" `
+   $webAppAadApplication = New-AzureADApplication -DisplayName "python-django-webapp-call-graph" `
                                                   -HomePage "http://localhost:8000" `
                                                   -ReplyUrls "http://localhost:8000/auth/redirect" `
-                                                  -IdentifierUris "https://$tenantName/python-django-webapp-auth-my-tenant" `
+                                                  -IdentifierUris "https://$tenantName/python-django-webapp-call-graph" `
                                                   -PasswordCredentials $key `
                                                   -PublicClient $False
 
@@ -214,12 +214,12 @@ Function ConfigureApplications
    }
 
 
-   Write-Host "Done creating the webApp application (python-django-webapp-auth-my-tenant)"
+   Write-Host "Done creating the webApp application (python-django-webapp-call-graph)"
 
    # URL of the AAD application in the Azure portal
    # Future? $webAppPortalUrl = "https://portal.azure.com/#@"+$tenantName+"/blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/Overview/appId/"+$webAppAadApplication.AppId+"/objectId/"+$webAppAadApplication.ObjectId+"/isMSAApp/"
    $webAppPortalUrl = "https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/CallAnAPI/appId/"+$webAppAadApplication.AppId+"/objectId/"+$webAppAadApplication.ObjectId+"/isMSAApp/"
-   Add-Content -Value "<tr><td>webApp</td><td>$currentAppId</td><td><a href='$webAppPortalUrl'>python-django-webapp-auth-my-tenant</a></td></tr>" -Path createdApps.html
+   Add-Content -Value "<tr><td>webApp</td><td>$currentAppId</td><td><a href='$webAppPortalUrl'>python-django-webapp-call-graph</a></td></tr>" -Path createdApps.html
 
    $requiredResourcesAccess = New-Object System.Collections.Generic.List[Microsoft.Open.AzureAD.Model.RequiredResourceAccess]
 

@@ -23,5 +23,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('sign_in_status', views.index, name='status'),
     path('token_details', views.token_details, name='token_details'),
+    path('call_ms_graph', views.call_ms_graph, name='call_ms_graph'),
     path(f'{config.django.auth_endpoints.prefix}/', include('my_tenant.urls')),
 ]

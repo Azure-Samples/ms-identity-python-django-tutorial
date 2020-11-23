@@ -4,13 +4,13 @@
       "Level": 100,
       "Client": "Python Django Webapp",
       "Service": "N/A",
-      "RepositoryUrl": "ms-identity-python-django-webapp-authentication",
+      "RepositoryUrl": "ms-identity-python-django-webapp-call-graph",
       "Endpoint": "AAD v2.0"
     },
     "AADApps": [
       {
         "Id": "webApp",
-        "Name": "python-django-webapp-auth-my-tenant",
+        "Name": "python-django-webapp-call-graph",
         "Kind": "WebApp",
         "Audience": "AzureADMyOrg",
         "PasswordCredentials": "Auto",
