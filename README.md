@@ -7,6 +7,7 @@ products:
   - azure
   - azure-active-directory
   - microsoft-identity-platform
+  - msal-python
 name: Enable your Python Django webapp to sign in users to your Azure Active Directory tenant with the Microsoft identity platform
 urlFragment: ms-identity-python-django-webapp-authentication
 description: "This sample demonstrates a Python Django webapp that signs in users to your Azure AD tenant with the Microsoft identity platform"
@@ -227,7 +228,8 @@ In `my_tenant/msal_middleware.py`'s `MsalMiddleware` class:
     aad_configuration = AADConfig.parse_json('aad.config.json')
     ms_identity_web = IdentityWebPython(aad_configuration)
     ...
-    self.ms_id_web.set_adapter(django_context_adapter)
+    django_context_adapter = DjangoContextAdapter(request)
+    self.ms_identity_web.set_adapter(django_context_adapter)
     ```
 
 - These three lines of code automatically hook up all necessary endpoints for the authentication process into your Django app under a route prefix (`/auth` by default). For example, the redirect endpoint is found at `/auth/redirect`.
