@@ -1,0 +1,20 @@
+{% extends '../content.html' %}
+
+{% block header %}
+
+    {% if request.identity_context_data.authenticated %}
+        You're signed in, {{ request.identity_context_data.username }}!
+    {% else %}
+        You're not signed in.
+    {% endif %}
+
+{% endblock %}
+
+{% block text %}
+    {% if request.identity_context_data.authenticated %}
+        Click here to get your <a class="btn btn-info p-1" href="{% url 'token_details' %}">ID Token Details</a>
+    {% else %}
+        Use the button on the top right to sign in. <br/>
+        Attempts to get your <a href="{% url 'token_details' %}">ID Token Details</a> should result in a 401 error.
+    {% endif %}
+{% endblock %}
