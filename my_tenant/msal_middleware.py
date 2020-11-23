@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect as django_redirect
 import logging
 
 config = AADConfig.parse_json(file_path='aad.config.json')
-ms_id_web = IdentityWebPython(config)
+ms_identity_web = IdentityWebPython(config)
 
 error_template = 'my_tenant/auth/{}.html'
 
@@ -16,7 +16,7 @@ class MsalMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
         # One-time configuration and initialization.
-        self.ms_id_web = ms_id_web
+        self.ms_identity_web = ms_identity_web
     
     def process_exception(self, request, exception):
         if isinstance(exception, NotAuthenticatedError):
@@ -28,7 +28,7 @@ class MsalMiddleware:
         # the view (and later middleware) are called.
 
         django_context_adapter = DjangoContextAdapter(request)
-        self.ms_id_web.set_adapter(django_context_adapter)
+        self.ms_identity_web.set_adapter(django_context_adapter)
         django_context_adapter._on_request_init()
         
         response = self.get_response(request)
@@ -78,7 +78,7 @@ class DjangoContextAdapter():
     # TODO: order is reveresed? create id web first, then attach django adapter to it!?
     def attach_identity_web_util(self, identity_web: 'IdentityWebPython') -> None:
         """attach the identity web instance somewhere so it is accessible everywhere.
-        e.g., ms_id_web = current_app.config.get("ms_identity_web")\n
+        e.g., ms_identity_web = current_app.config.get("ms_identity_web")\n
         Also attaches the application logger."""
         aad_config = identity_web.aad_config
         config_key = aad_config.django.id_web_configs

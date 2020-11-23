@@ -56,7 +56,7 @@
 #     # TODO: order is reveresed? create id web first, then attach flask adapter to it!?
 #     def attach_identity_web_util(self, identity_web: 'IdentityWebPython') -> None:
 #         """attach the identity web instance to session so it is accessible everywhere.
-#         e.g., ms_id_web = current_app.config.get("ms_identity_web")\n
+#         e.g., ms_identity_web = current_app.config.get("ms_identity_web")\n
 #         Also attaches the application logger."""
 #         aad_config = identity_web.aad_config
 #         config_key = aad_config.flask.id_web_configs
