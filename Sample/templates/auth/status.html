@@ -13,10 +13,8 @@
 {% block text %}
     {% if request.identity_context_data.authenticated %}
         Click here to get your <a class="btn btn-info p-1" href="{% url 'token_details' %}">ID Token Details</a>
-        or <a class="btn btn-info p-1" href="{% url 'call_ms_graph' %}">Call MS Graph API</a>
     {% else %}
         Use the button on the top right to sign in. <br/>
         Attempts to get your <a href="{% url 'token_details' %}">ID Token Details</a>
-        or <a href="{% url 'call_ms_graph' %}">Call MS Graph API</a> should result in a 401 error.
     {% endif %}
 {% endblock %}
