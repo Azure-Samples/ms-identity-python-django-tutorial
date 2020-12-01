@@ -1,4 +1,4 @@
-"""Authentication URL Configuration
+"""Sample URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
@@ -13,16 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
 from django.urls import path, include
 from . import views
-from my_tenant.msal_middleware import config
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('sign_in_status', views.index, name='status'),
     path('token_details', views.token_details, name='token_details'),
     path('call_ms_graph', views.call_ms_graph, name='call_ms_graph'),
-    path(f'{config.django.auth_endpoints.prefix}/', include('my_tenant.urls')),
+    path(f'{settings.AAD_CONFIG.django.auth_endpoints.prefix}/', include('msal_auth_app.urls')),
+    *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
 ]

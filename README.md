@@ -153,7 +153,7 @@ As a first step you'll need to:
 1. In the **Register an application page** that appears, enter your application's registration information:
    - In the **Name** section, enter a meaningful application name that will be displayed to users of the app, for example `python-django-webapp-call-graph`.
    - Under **Supported account types**, select **Accounts in this organizational directory only**.
-   - In the **Redirect URI (optional)** section, select **Web** in the combo-box and enter the following redirect URI: `http://localhost:8000/auth/aad_redirect`.
+   - In the **Redirect URI (optional)** section, select **Web** in the combo-box and enter the following redirect URI: `http://localhost:8000/auth/redirect`.
 1. Select **Register** to create the application.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
 
@@ -187,7 +187,7 @@ Open the project in your IDE to configure the code.
   ```Shell
     # start from the folder in which the sample is cloned into
     python manage.py migrate
-    python manage.py runserver
+    python manage.py runserver localhost:8000
   ```
 
 - On Windows:
@@ -195,7 +195,7 @@ Open the project in your IDE to configure the code.
   ```PowerShell
     # start from the folder in which the sample is cloned into
     python manage.py migrate
-    python manage.py runserver
+    python manage.py runserver localhost:8000
   ```
 
 - Navigate to [http://localhost:8000](http://localhost:8000) in your browser
@@ -223,7 +223,7 @@ Were we successful in addressing your learning objective? Consider taking a mome
 
 This sample uses the [Microsoft Authentication Library \(MSAL\) for Python](https://github.com/AzureAD/microsoft-authentication-library-for-python) to sign in a user and obtain a token for MS Graph API. It leverages the IdentityWebPython class found in the [Microsoft Identity Python Samples Common](https://github.com/azure-samples/ms-identity-python-samples-common) repository to allow for quick app setup.
 
-In `my_tenant/msal_middleware`'s `MsalMiddleware` class:
+In `msal_auth_app/msal_middleware`'s `MsalMiddleware` class:
 
 1. A configuration object is parsed from [aad.config.json](./aad.config.json)
 2. A DjangoAdapter is instantiated for interfacing with the Django app
@@ -257,7 +257,7 @@ def call_ms_graph():
     graph = 'https://graph.microsoft.com/v1.0/users'
     authZ = f'Bearer {ms_identity_web.id_data._access_token}'
     results = requests.get(graph, headers={'Authorization': authZ}).json()
-    return render_template('auth/call-graph.html', results=results)
+    return render(request, 'auth/call-graph.html', context=dict(results=results))
 ```
 
 1. `ms_identity_web.acquire_token_silently()` method leverages MSAL for Python to perform a *silent token acquisition* and stores the result in the session, also accessible via  `ms_identity_web.id_data` or `request.identity_context_data`
