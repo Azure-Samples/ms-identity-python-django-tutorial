@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from msal_auth_app.msal_middleware import ms_identity_web
-from django import template
+from django.conf import settings
 import requests
 
-register = template.Library()
+ms_identity_web = settings.MS_IDENTITY_WEB
 
 def index(request):
     return render(request, "auth/status.html")
