@@ -32,8 +32,7 @@ ALLOWED_HOSTS = ['django-call-graph.azurewebsites.net', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
-    'msal_auth_app.apps.MsalAuthApp',
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -49,7 +48,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'msal_auth_app.msal_middleware.MsalMiddleware',
 ]
 
 ROOT_URLCONF = 'Sample.urls'
@@ -121,12 +119,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'Sample/static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "static"
+    BASE_DIR / "Sample/static"
 ]
-
 from ms_identity_web.configuration import AADConfig
+from ms_identity_web import IdentityWebPython
 AAD_CONFIG = AADConfig.parse_json(file_path='aad.config.json')
-ERROR_TEMPLATE = 'auth/{}.html'
+MS_IDENTITY_WEB = IdentityWebPython(AAD_CONFIG)
+ERROR_TEMPLATE = 'auth/{}.html' # for rendering 401 or other errors from msal_middleware
+MIDDLEWARE.append('ms_identity_web.django.middleware.MsalMiddleware')

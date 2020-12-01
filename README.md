@@ -223,21 +223,31 @@ Were we successful in addressing your learning objective? Consider taking a mome
 
 This sample uses the [Microsoft Authentication Library \(MSAL\) for Python](https://github.com/AzureAD/microsoft-authentication-library-for-python) to sign in a user and obtain a token for MS Graph API. It leverages the IdentityWebPython class found in the [Microsoft Identity Python Samples Common](https://github.com/azure-samples/ms-identity-python-samples-common) repository to allow for quick app setup.
 
-In `msal_auth_app/msal_middleware`'s `MsalMiddleware` class:
+In `Sample/settings.py` class:
 
 1. A configuration object is parsed from [aad.config.json](./aad.config.json)
-2. A DjangoAdapter is instantiated for interfacing with the Django app
-3. The DjangoAdapter and an Azure AD configuration object are used to instantiate **IdentityWebPython**
+1. The Azure AD configuration object are used to instantiate **IdentityWebPython**
+   1. This **must** be named `MS_IDENTITY_WEB`
+1. The `MsalMiddleware` class from the ms_identity_web package is added to the project's middleware
+
+   ```python
+    from ms_identity_web.configuration import AADConfig
+    from ms_identity_web import IdentityWebPython
+    AAD_CONFIG = AADConfig.parse_json(file_path='aad.config.json')
+    MS_IDENTITY_WEB = IdentityWebPython(AAD_CONFIG)
+    ERROR_TEMPLATE = 'auth/{}.html' # for rendering 401 or other errors from msal_middleware
+    MIDDLEWARE.append('ms_identity_web.django.middleware.MsalMiddleware')
+   ```
+
+1. In the app's `Sample/urls.py` module, the necessary MSAL endpoints are hooked up:
 
     ```python
-    aad_configuration = AADConfig.parse_json('aad.config.json')
-    ms_identity_web = IdentityWebPython(aad_configuration)
+    msal_urls = MsalViews(settings.MS_IDENTITY_WEB).url_patterns()
     ...
-    django_context_adapter = DjangoContextAdapter(request)
-    self.ms_identity_web.set_adapter(django_context_adapter)
+    path(f'{settings.AAD_CONFIG.django.auth_endpoints.prefix}/', include(msal_urls)),
     ```
 
-- These three lines of code automatically hook up all necessary endpoints for the authentication process into your Django app under a route prefix (`/auth` by default). For example, the redirect endpoint is found at `/auth/redirect`.
+- The above code sets up middlwares and hooks up all necessary endpoints for the authentication process into your Django app under a route prefix (`/auth` by default). For example, the redirect endpoint is found at `/auth/redirect`.
 - When a user navigates to `/auth/sign_in` and completes a sign-in attempt, the resulting identity data is put into the session, which can be accessed through the request object at `request.identity_context_data`.
 - When an endpoint is decorated with `@ms_identity_web.login_required`, the application only allows requests to the endpoint from authenticated (signed-in) users. If the user is not signed-in, a `401: unauthorized` error is thrown, and the browser is redirected to the 401 handler.
 
