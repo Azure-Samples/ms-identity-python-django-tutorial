@@ -1,15 +1,12 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from my_tenant.msal_middleware import ms_identity_web, config
+from msal_auth_app.msal_middleware import ms_identity_web
 import logging
 
 logger = logging.getLogger('MsalViewsLogger')
 
-prefix = config.django.auth_endpoints.prefix + "/"
-endpoints = config.django.auth_endpoints
-
-def index(request):
-    return render(request, "my_tenant/auth/status.html")
+prefix = ms_identity_web.aad_config.django.auth_endpoints.prefix + "/"
+endpoints = ms_identity_web.aad_config.django.auth_endpoints
 
 def sign_in(request):
     logger.debug(f"{prefix}{endpoints.sign_in}: request received. will redirect browser to login")
@@ -39,7 +36,3 @@ def post_sign_out(request):
     logger.debug(f"{prefix}{endpoints.post_sign_out}: clearing session for username: {request.identity_context_data.username}")
     ms_identity_web.remove_user(request.identity_context_data.username)  # remove user auth from session on successful logout
     return redirect(reverse('index'))                   # take us back to the home page
-
-@ms_identity_web.login_required
-def token_details(request):
-    return render(request, 'my_tenant/auth/token.html')

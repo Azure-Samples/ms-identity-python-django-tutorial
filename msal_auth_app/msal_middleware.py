@@ -1,16 +1,13 @@
 from ms_identity_web import IdentityWebPython
 from ms_identity_web.context import IdentityContextData
-from ms_identity_web.configuration import AADConfig
 from ms_identity_web.adapters import IdentityWebContextAdapter
 from ms_identity_web.errors import NotAuthenticatedError
 from django.http.request import HttpRequest as DjangoHttpRequest
+from django.conf import settings
 from django.shortcuts import render, redirect as django_redirect
 import logging
 
-config = AADConfig.parse_json(file_path='aad.config.json')
-ms_identity_web = IdentityWebPython(config)
-
-error_template = 'my_tenant/auth/{}.html'
+ms_identity_web = IdentityWebPython(settings.AAD_CONFIG)
 
 class MsalMiddleware:
     def __init__(self, get_response):
@@ -20,7 +17,7 @@ class MsalMiddleware:
     
     def process_exception(self, request, exception):
         if isinstance(exception, NotAuthenticatedError):
-            return render(request, error_template.format(exception.code))
+            return render(request, settings.ERROR_TEMPLATE.format(exception.code))
         return None
 
     def __call__(self, request):
@@ -44,12 +41,10 @@ class MsalMiddleware:
 class DjangoContextAdapter():
     """Context Adapter to enable IdentityWebPython to work within the Django environment"""
     def __init__(self, request: DjangoHttpRequest) -> None:
-        # TODO: remove the following and add a middleware loaded before this one for global request/session context
+        # TODO: remove the following and add a middleware loaded before this one for global request/session context?
         self.request = request
         self._session = request.session
         self.logger = logging.getLogger('MsalMiddleWareLogger')
-
-        
 
     @property
     def identity_context_data(self) -> 'IdentityContextData':
@@ -91,7 +86,7 @@ class DjangoContextAdapter():
 
     @property
     def session(self) -> None:
-        return self._session #TODO: fix this for django
+        return self._session
 
     # TODO: only clear IdWebPy vars
     def clear_session(self) -> None:

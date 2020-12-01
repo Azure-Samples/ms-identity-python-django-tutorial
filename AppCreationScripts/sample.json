@@ -16,7 +16,7 @@
         "PasswordCredentials": "Auto",
         "AllowImplicitFlow": false,
         "HomePage": "http://localhost:8000",
-        "ReplyUrls": "http://localhost:8000/auth/aad_redirect",
+        "ReplyUrls": "http://localhost:8000/auth/redirect",
         "RequiredResourcesAccess": []
       }
     ],
