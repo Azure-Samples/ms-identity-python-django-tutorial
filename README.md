@@ -57,16 +57,17 @@ In order to get your deployed app fully functional, you must:
 It is not secure to deploy secrets in a config file to a production application. To deploy your app more securely, you must:
 
 1. Supply a config file that omits secrets (i.e., `aad.config.json` that sets `"client_credential": null`)
-1. Add the secrets from a secure location such as:
-   1. **Azure Vault**. Use the [Azure Key Vault Secret client library for Python](https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/keyvault/azure-keyvault-secrets) and modify the `settings.py` file as follows:
+1. After you've deployed your app in the next sections, come back and add the secrets from a secure location such as:
+   1. **Azure Vault**. Use the [Azure Key Vault Secret client library for Python](https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/keyvault/azure-keyvault-secrets). Set the client secret value in vault, naming it `CLIENT_SECRET` for example. Then set up the Azure key vault client in your app, and modify the `settings.py` file as follows:
 
          ```Python
          AAD_CONFIG = AADConfig.parse_json(file_path='aad.config.json')
-         # after the above line, add the following line:
+         # after the above line, add the following lines:
+         secret_client = "...set up your Azure Key Vault Secret client library for Python here"
          AAD_CONFIG.client.client_credential=secret_client.get_secret("secret-name")
          ```
 
-   1. **Environment Variables**. Modify the `settings.py` file as follows:
+   1. **Environment Variables** (*Azure Portal > App Services > `Your App` > Configuration*). You must set the value for `CLIENT_SECRET`. Modify the `settings.py` file as follows:
 
          ```Python
          AAD_CONFIG = AADConfig.parse_json(file_path='aad.config.json')
