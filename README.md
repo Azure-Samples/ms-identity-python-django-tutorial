@@ -249,7 +249,7 @@ At a minimum, following parameters need to be provided to the MSAL for Python li
 
 - The **Client ID** of the app
 - The **Client Credential**, which is a requirement for Confidential Client Applications
-- The **Azure AD B2C Authority** concatenated with an appropriate **UserFlowPolicy** for sign-up-sign-in* or *profile-edit* or *password-reset*.
+- The **Azure AD B2C Authority** concatenated with an appropriate **UserFlowPolicy** for *sign-up-sign-in* or *profile-edit* or *password-reset*.
 
 1. The first step of the sign-in process is to send a request to the `/authorize` endpoint on Azure Active Directory.
 
