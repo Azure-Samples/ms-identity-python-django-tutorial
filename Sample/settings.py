@@ -26,7 +26,7 @@ SECRET_KEY = '=o7q14#fzv9&rfqy4ub_biym+osmoll)e2z)^*q__7ik6p&!ls'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-call-graph.azurewebsites.net', 'localhost']
+ALLOWED_HOSTS = []
 
 
 # Application definition
