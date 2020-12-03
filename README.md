@@ -184,8 +184,6 @@ Open the project in your IDE (like **Visual Studio Code**) to configure the code
 - Alternatively, you may use `python -m django run` instead of `django run`
 - Navigate to [http://localhost:8000](http://localhost:8000) in your browser
 
-> You might run into an invalid certificate error on your browser as we are using self-signed certificates for `https`. If you do, you can ignore that error while running this sample locally.
-
 ![Experience](./ReadmeFiles/app.png)
 
 ## Explore the sample
