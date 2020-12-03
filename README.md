@@ -54,7 +54,7 @@ In order to get your deployed app fully functional, you must:
 
 ### Step 1: Prepare the web app for deployment
 
-It is not secure to deploy secrets in a config file to a production application. To deploy your app more securely, you must:
+You **may skip this step** if you are doing a test deployment with a development Azure Active Directory App registration that does not have any sensitive data. **It is not secure to deploy secrets in a config file to a production application**. To deploy your app more securely, you must:
 
 1. Supply a config file that omits secrets (i.e., `aad.config.json` that sets `"client_credential": null`)
 1. After you've deployed your app in the next sections, come back and add the secrets from a secure location such as:
