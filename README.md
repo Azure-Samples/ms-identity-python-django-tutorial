@@ -87,7 +87,7 @@ or download and extract the repository .zip file.
 - In Linux/OSX via the terminal:
 
 ```Shell
-  cd <project-root-directory> # the folder into which you cloned the code
+  cd <project-root-directory> #the folder into which you cloned the code
   python3 -m venv venv # only required if you don't have a venv already
   source venv/bin/activate
   pip install -r requirements.txt
@@ -96,7 +96,8 @@ or download and extract the repository .zip file.
 - In Windows via PowerShell:
 
 ```PowerShell
-  cd <project-root-directory> # the folder into which you cloned the code
+  cd <project-root-directory> #the folder into which you cloned the code
+  python3 -m venv venv # only required if you don't have a venv already
   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force
   . .\venv\Scripts\Activate.ps1
   pip install -r requirements.txt
@@ -177,18 +178,20 @@ Open the project in your IDE to configure the code.
 ## Running the sample
 
 - To run the sample, open a terminal window. Navigate to the root of the project. Be sure your virtual environment with dependencies is activated ([Prerequisites](#prerequisites)).
-- Or in Linux/OSX via terminal with ad-hoc certs:
+- On Linux/OSX via the terminal:
 
   ```Shell
     # start from the folder in which the sample is cloned into
-    python manage.py runserver
+    python manage.py migrate
+    python manage.py runserver localhost:8000
   ```
 
 - On Windows:
 
   ```PowerShell
     # start from the folder in which the sample is cloned into
-    python manage.py runserver
+    python manage.py migrate
+    python manage.py runserver localhost:8000
   ```
 
 - Alternatively, you may use `python -m django run` instead of `django run`
