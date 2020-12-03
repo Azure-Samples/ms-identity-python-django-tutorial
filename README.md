@@ -181,7 +181,6 @@ Open the project in your IDE (like **Visual Studio Code**) to configure the code
     python manage.py runserver localhost:8000
   ```
 
-- Alternatively, you may use `python -m django run` instead of `django run`
 - Navigate to [http://localhost:8000](http://localhost:8000) in your browser
 
 ![Experience](./ReadmeFiles/app.png)
