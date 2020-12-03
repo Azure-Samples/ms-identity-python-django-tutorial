@@ -22,5 +22,6 @@ def call_ms_graph(request):
     if 'value' in results:
         results ['num_results'] = len(results['value'])
         results['value'] = results['value'][:5]
-
+    else:
+        results['value'] =[{'displayName': 'call-graph-error', 'id': 'call-graph-error'}]
     return render(request, 'auth/call-graph.html', context=dict(results=results))
