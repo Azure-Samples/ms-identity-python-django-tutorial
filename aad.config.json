@@ -21,7 +21,7 @@
             "prefix": "auth",
             "sign_in": "sign_in",
             "edit_profile": "edit_profile",
-            "redirect": "aad_redirect",
+            "redirect": "redirect",
             "sign_out": "sign_out",
             "post_sign_out": "post_sign_out"
         }
