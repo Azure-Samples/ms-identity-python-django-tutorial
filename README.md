@@ -14,30 +14,29 @@ description: "This sample demonstrates a Python Django webapp that signs in user
 ---
 # Enable your Python Django webapp to sign in users and call Microsoft Graph with the Microsoft identity platform
 
-- [Enable your Python Django webapp to sign in users and call Microsoft Graph with the Microsoft identity platform](#enable-your-python-django-webapp-to-sign-in-users-and-call-microsoft-graph-with-the-microsoft-identity-platform)
-  - [Overview](#overview)
-  - [Scenario](#scenario)
-  - [Contents](#contents)
-  - [Prerequisites](#prerequisites)
-  - [Setup](#setup)
-    - [Step 1: Clone or download this repository](#step-1-clone-or-download-this-repository)
-    - [Step 2: Install project dependencies](#step-2-install-project-dependencies)
-  - [Register the sample application(s) with your Azure Active Directory tenant](#register-the-sample-applications-with-your-azure-active-directory-tenant)
-    - [Choose the Azure AD tenant where you want to create your applications](#choose-the-azure-ad-tenant-where-you-want-to-create-your-applications)
-    - [Register the webapp (python-django-webapp-call-graph)](#register-the-webapp-python-django-webapp-call-graph)
-    - [Configure the webapp (python-django-webapp-call-graph) to use your app registration](#configure-the-webapp-python-django-webapp-call-graph-to-use-your-app-registration)
-  - [Running the sample](#running-the-sample)
-  - [We'd love your feedback!](#wed-love-your-feedback)
-  - [Explore the sample](#explore-the-sample)
-  - [About the code](#about-the-code)
-    - [Calling MS Graph](#calling-ms-graph)
-    - [Scopes](#scopes)
-    - [Under the hood](#under-the-hood)
-  - [Deploy to Azure](#deploy-to-azure)
-  - [More information](#more-information)
-  - [Community Help and Support](#community-help-and-support)
-  - [Contributing](#contributing)
-  - [Code of Conduct](#code-of-conduct)
+- [Overview](#overview)
+- [Scenario](#scenario)
+- [Contents](#contents)
+- [Prerequisites](#prerequisites)
+- [Setup](#setup)
+  - [Step 1: Clone or download this repository](#step-1-clone-or-download-this-repository)
+  - [Step 2: Install project dependencies](#step-2-install-project-dependencies)
+- [Register the sample application(s) with your Azure Active Directory tenant](#register-the-sample-applications-with-your-azure-active-directory-tenant)
+  - [Choose the Azure AD tenant where you want to create your applications](#choose-the-azure-ad-tenant-where-you-want-to-create-your-applications)
+  - [Register the webapp (python-django-webapp-call-graph)](#register-the-webapp-python-django-webapp-call-graph)
+  - [Configure the webapp (python-django-webapp-call-graph) to use your app registration](#configure-the-webapp-python-django-webapp-call-graph-to-use-your-app-registration)
+- [Running the sample](#running-the-sample)
+- [We'd love your feedback!](#wed-love-your-feedback)
+- [Explore the sample](#explore-the-sample)
+- [About the code](#about-the-code)
+  - [Calling MS Graph](#calling-ms-graph)
+  - [Scopes](#scopes)
+  - [Under the hood](#under-the-hood)
+- [Deploy to Azure](#deploy-to-azure)
+- [More information](#more-information)
+- [Community Help and Support](#community-help-and-support)
+- [Contributing](#contributing)
+- [Code of Conduct](#code-of-conduct)
 
 ## Overview
 
@@ -198,7 +197,7 @@ Open the project in your IDE to configure the code.
     python manage.py runserver localhost:8000
   ```
 
-- Navigate to [http://localhost:8000](http://localhost:8000) in your browser
+- Navigate to [http://localhost:8000](http://localhost:8000) in your browser (**Don't use** use 127.0.0.1)
 
 ![Experience](./ReadmeFiles/app.png)
 
@@ -211,6 +210,7 @@ Were we successful in addressing your learning objective? Consider taking a mome
 - Note the signed-in or signed-out status displayed at the center of the screen.
 - Click the context-sensitive button at the top right (it will read `Sign In` on first run)
 - Follow the instructions on the next page to sign in with an account in the Azure AD tenant.
+- On the consent screen, note the scopes that are being requested.
 - Note the context-sensitive button now says `Sign out` and displays your username to its left.
 - The middle of the screen now has an option to click for **ID Token Details**: click it to see some of the ID token's decoded claims.
 - Click the **Call Graph** button to make a call to MS Graph API's [/users](https://docs.microsoft.comgraph/api/user-list) endpoint and fetch the details of up to 5 users in your tenant.
