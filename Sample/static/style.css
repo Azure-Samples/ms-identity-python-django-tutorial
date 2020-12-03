@@ -39,13 +39,13 @@
   }
   
 #left {
-flex: content;
+/* flex: content; */
 margin-right: 0.5em;
 
 }
 
 #right {
-flex: 1;
+/* flex: 1; */
 }
 
 #footer {
