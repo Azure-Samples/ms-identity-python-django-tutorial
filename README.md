@@ -54,7 +54,15 @@ In order to get your deployed app fully functional, you must:
 
 ### Step 1: Prepare the web app for deployment
 
-You **may skip this step** if you are doing a test deployment with a development Azure Active Directory App registration that does not have any sensitive data. **It is not secure to deploy secrets in a config file to a production application**. To deploy your app more securely, you must:
+In your app's `Sample/settings.py`, modify the allowed hosts as follows:
+
+  ```Python
+  ALLOWED_HOSTS = ['*']
+  ```
+
+After your first deployment, ou will later come back to this and add the URL of your deployed app, along with localhost for subsequent deployments, i.e., `['example.azurewebsites.net', 'localhost']`
+
+You **may skip the rest of this step** if you are doing a test deployment with a development Azure Active Directory App registration that does not have any sensitive data. **It is not secure to deploy secrets in a config file to a production application**. To deploy your app more securely, you must:
 
 1. Supply a config file that omits secrets (i.e., `aad.config.json` that sets `"client_credential": null`)
 1. After you've deployed your app in the next sections, come back and add the secrets from a secure location such as:
@@ -75,15 +83,7 @@ You **may skip this step** if you are doing a test deployment with a development
          AAD_CONFIG.client.client_credential=os.environ.get("secret-name")
          ```
 
-1. In your app's `settings.py`, modify the allowed hosts as follows:
-
-    ```Python
-    ALLOWED_HOSTS = ['*']
-    ```
-
-    After your first deployment, ou will later come back to this and add the URL of your deployed app, along with localhost for subsequent deployments, i.e., `['example.azurewebsites.net', 'localhost']`
-
-1. If you are sure you want to continue, proceed to [step 2](#step-2-deploy-the-web-app).
+If you are sure you want to continue, proceed to [step 2](#step-2-deploy-the-web-app).
 
 ### Step 2: Deploy the web app
 
