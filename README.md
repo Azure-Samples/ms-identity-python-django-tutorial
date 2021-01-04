@@ -23,8 +23,8 @@ description: "This sample demonstrates a Python Django web app that signs in use
   - [Step 2: Install project dependencies](#step-2-install-project-dependencies)
 - [Register the sample application(s) with your Azure Active Directory tenant](#register-the-sample-applications-with-your-azure-active-directory-tenant)
   - [Choose the Azure AD tenant where you want to create your applications](#choose-the-azure-ad-tenant-where-you-want-to-create-your-applications)
-  - [Register the webapp (python-django-webapp-auth-my-tenant)](#register-the-webapp-python-django-webapp-auth-my-tenant)
-  - [Configure the webapp (python-django-webapp-auth-my-tenant) to use your app registration](#configure-the-webapp-python-django-webapp-auth-my-tenant-to-use-your-app-registration)
+  - [Register the web app (python-django-webapp-auth-my-tenant)](#register-the-web-app-python-django-webapp-auth-my-tenant)
+  - [Configure the web app (python-django-webapp-auth-my-tenant) to use your app registration](#configure-the-web-app-python-django-webapp-auth-my-tenant-to-use-your-app-registration)
 - [Running the sample](#running-the-sample)
 - [Explore the sample](#explore-the-sample)
 - [We'd love your feedback!](#wed-love-your-feedback)
@@ -141,7 +141,7 @@ As a first step you'll need to:
 1. Sign in to the [Azure portal](https://portal.azure.com).
 1. If your account is present in more than one Azure AD tenant, select your profile at the top right corner in the menu on top of the page, and then **switch directory** to change your portal session to the desired Azure AD tenant.
 
-### Register the webapp (python-django-webapp-auth-my-tenant)
+### Register the web app (python-django-webapp-auth-my-tenant)
 
 1. Navigate to the Microsoft identity platform for developers [App registrations](https://go.microsoft.com/fwlink/?linkid=2083908) page.
 1. Select **New registration**.
@@ -161,7 +161,7 @@ As a first step you'll need to:
    - The generated key value will be displayed when you click the **Add** button. Copy the generated value for use in the steps later.
    - You'll need this key later in your code's configuration files. This key value will not be displayed again, and is not retrievable by any other means, so make sure to note it from the Azure portal before navigating to any other screen or blade.
 
-### Configure the webapp (python-django-webapp-auth-my-tenant) to use your app registration
+### Configure the web app (python-django-webapp-auth-my-tenant) to use your app registration
 
 Open the project in your IDE to configure the code.
 
