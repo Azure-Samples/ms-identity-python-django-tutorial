@@ -8,11 +8,11 @@ products:
   - azure-active-directory
   - microsoft-identity-platform
   - msal-python
-name: Enable your Python Django webapp to sign in users to your Azure Active Directory tenant with the Microsoft identity platform
+name: Enable your Python Django web app to sign in users to your Azure Active Directory tenant with the Microsoft identity platform
 urlFragment: ms-identity-python-django-webapp-authentication
-description: "This sample demonstrates a Python Django webapp that signs in users to your Azure AD tenant with the Microsoft identity platform"
+description: "This sample demonstrates a Python Django web app that signs in users to your Azure AD tenant with the Microsoft identity platform"
 ---
-# Enable your Python Django webapp to sign in users to your Azure Active Directory tenant with the Microsoft identity platform
+# Enable your Python Django web app to sign in users to your Azure Active Directory tenant with the Microsoft identity platform
 
 - [Overview](#overview)
 - [Scenario](#scenario)

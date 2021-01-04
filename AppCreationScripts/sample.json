@@ -1,8 +1,8 @@
 {
     "Sample": {
-      "Title": "A Python Django Webapp to sign in users in your Azure AD tenant with the Microsoft Identity platform",
+      "Title": "Enable your Python Django web app to sign in users to your Azure Active Directory tenant with the Microsoft identity platform",
       "Level": 100,
-      "Client": "Python Django Webapp",
+      "Client": "Python Django web app",
       "Service": "N/A",
       "RepositoryUrl": "ms-identity-python-django-webapp-authentication",
       "Endpoint": "AAD v2.0"
