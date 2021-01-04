@@ -2,15 +2,14 @@
 page_type: sample
 languages:
   - python
-  - django
 products:
   - azure
   - azure-active-directory
   - microsoft-identity-platform
   - msal-python
-name: Enable your Python Django web app to sign in users to your Azure Active Directory tenant with the Microsoft identity platform
-urlFragment: ms-identity-python-django-webapp-authentication
-description: "This sample demonstrates a Python Django web app that signs in users to your Azure AD tenant with the Microsoft identity platform"
+name: "Enable your Python Django web app to sign in users and call Microsoft Graph with the Microsoft identity platform"
+urlFragment: "ms-identity-python-django-webapp-authentication"
+description: "This sample demonstrates a Python Django web app that signs in users to your Azure AD tenant, obtains an access token to call MS Graph with the Microsoft identity platform"
 ---
 # Enable your Python Django web app to sign in users and call Microsoft Graph with the Microsoft identity platform
 
@@ -164,6 +163,14 @@ As a first step you'll need to:
    - Select one of the available key durations (**In 1 year**, **In 2 years**, or **Never Expires**) as per your security concerns.
    - The generated key value will be displayed when you click the **Add** button. Copy the generated value for use in the steps later.
    - You'll need this key later in your code's configuration files. This key value will not be displayed again, and is not retrievable by any other means, so make sure to note it from the Azure portal before navigating to any other screen or blade.
+
+1. In the app's registration screen, click on the **API permissions** blade in the left to open the page where we add access to the Apis that your application needs.
+   - Click the **Add permissions** button and then,
+   - Ensure that the **Microsoft APIs** tab is selected.
+   - In the *Commonly used Microsoft APIs* section, click on **Microsoft Graph**
+   - In the **Delegated permissions** section, select the **User.ReadBasic.All** in the list. Use the search box if necessary.
+   - Click on the **Add permissions** button in the bottom.
+   - Click the check-marked button **Grant Admin Consent** to grant admin consent and confirm by clicking the `Yes` option in the pop up box.
 
 ### Configure the web app (python-django-webapp-call-graph) to use your app registration
 

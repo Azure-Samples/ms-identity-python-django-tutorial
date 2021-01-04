@@ -11,7 +11,7 @@
     },
     "auth_request": {
         "redirect_uri": null,
-        "scopes": [],
+        "scopes": ["User.ReadBasic.All"],
         "response_type": "code"
     },
     "flask": null,

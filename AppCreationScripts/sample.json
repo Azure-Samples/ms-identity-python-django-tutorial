@@ -17,7 +17,12 @@
         "AllowImplicitFlow": false,
         "HomePage": "http://localhost:8000",
         "ReplyUrls": "http://localhost:8000/auth/redirect",
-        "RequiredResourcesAccess": []
+        "RequiredResourcesAccess": [
+          {
+            "Resource": "Microsoft Graph",
+            "DelegatedPermissions": [ "User.ReadBasic.All" ]
+          }
+        ]
       }
     ],
     "CodeConfiguration": [
