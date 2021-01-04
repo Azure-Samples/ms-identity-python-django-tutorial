@@ -8,8 +8,8 @@ products:
   - azure-active-directory
   - microsoft-identity-platform
   - msal-python
-name: Enable your Python Django web app to sign in users to your Azure Active Directory tenant with the Microsoft identity platform
-urlFragment: ms-identity-python-django-webapp-authentication
+name: "Enable your Python Django web app to sign in users to your Azure Active Directory tenant with the Microsoft identity platform"
+urlFragment: "ms-identity-python-django-webapp-authentication"
 description: "This sample demonstrates a Python Django web app that signs in users to your Azure AD tenant with the Microsoft identity platform"
 ---
 # Enable your Python Django web app to sign in users to your Azure Active Directory tenant with the Microsoft identity platform
@@ -210,7 +210,7 @@ Open the project in your IDE to configure the code.
 - You can also use the button on the top right to sign out.
 - After signing out, click the link to `ID Token Details` to observe that the app displays a `401: unauthorized` error instead of the ID token claims when the user is not authorized.
 
-> :information_source: Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
+> :information_source: Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../../issues) page.
 
 ## We'd love your feedback!
 
