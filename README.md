@@ -181,6 +181,7 @@ Open the project in your IDE to configure the code.
 
   ```Shell
     # start from the folder in which the sample is cloned into
+    python manage.py collectstatic
     python manage.py migrate
     python manage.py runserver localhost:8000
   ```
@@ -189,6 +190,7 @@ Open the project in your IDE to configure the code.
 
   ```PowerShell
     # start from the folder in which the sample is cloned into
+    python manage.py collectstatic
     python manage.py migrate
     python manage.py runserver localhost:8000
   ```
