@@ -14,28 +14,27 @@ description: "This sample demonstrates a Python Django webapp that signs in user
 ---
 # Enable your Python Django webapp to sign in users to your Azure Active Directory tenant with the Microsoft identity platform
 
-- [Enable your Python Django webapp to sign in users to your Azure Active Directory tenant with the Microsoft identity platform](#enable-your-python-django-webapp-to-sign-in-users-to-your-azure-active-directory-tenant-with-the-microsoft-identity-platform)
-  - [Overview](#overview)
-  - [Scenario](#scenario)
-  - [Contents](#contents)
-  - [Prerequisites](#prerequisites)
-  - [Setup](#setup)
-    - [Step 1: Clone or download this repository](#step-1-clone-or-download-this-repository)
-    - [Step 2: Install project dependencies](#step-2-install-project-dependencies)
-  - [Register the sample application(s) with your Azure Active Directory tenant](#register-the-sample-applications-with-your-azure-active-directory-tenant)
-    - [Choose the Azure AD tenant where you want to create your applications](#choose-the-azure-ad-tenant-where-you-want-to-create-your-applications)
-    - [Register the webapp (python-django-webapp-auth-my-tenant)](#register-the-webapp-python-django-webapp-auth-my-tenant)
-    - [Configure the webapp (python-django-webapp-auth-my-tenant) to use your app registration](#configure-the-webapp-python-django-webapp-auth-my-tenant-to-use-your-app-registration)
-  - [Running the sample](#running-the-sample)
-  - [Explore the sample](#explore-the-sample)
-  - [We'd love your feedback!](#wed-love-your-feedback)
-  - [About the code](#about-the-code)
-    - [Under the hood](#under-the-hood)
-  - [Next Steps or Deploy to Azure](#next-steps-or-deploy-to-azure)
-  - [Community Help and Support](#community-help-and-support)
-  - [Contributing](#contributing)
-  - [Code of Conduct](#code-of-conduct)
-  - [More information](#more-information)
+- [Overview](#overview)
+- [Scenario](#scenario)
+- [Contents](#contents)
+- [Prerequisites](#prerequisites)
+- [Setup](#setup)
+  - [Step 1: Clone or download this repository](#step-1-clone-or-download-this-repository)
+  - [Step 2: Install project dependencies](#step-2-install-project-dependencies)
+- [Register the sample application(s) with your Azure Active Directory tenant](#register-the-sample-applications-with-your-azure-active-directory-tenant)
+  - [Choose the Azure AD tenant where you want to create your applications](#choose-the-azure-ad-tenant-where-you-want-to-create-your-applications)
+  - [Register the webapp (python-django-webapp-auth-my-tenant)](#register-the-webapp-python-django-webapp-auth-my-tenant)
+  - [Configure the webapp (python-django-webapp-auth-my-tenant) to use your app registration](#configure-the-webapp-python-django-webapp-auth-my-tenant-to-use-your-app-registration)
+- [Running the sample](#running-the-sample)
+- [Explore the sample](#explore-the-sample)
+- [We'd love your feedback!](#wed-love-your-feedback)
+- [About the code](#about-the-code)
+  - [Under the hood](#under-the-hood)
+- [Next Steps or Deploy to Azure](#next-steps-or-deploy-to-azure)
+- [Community Help and Support](#community-help-and-support)
+- [Contributing](#contributing)
+- [Code of Conduct](#code-of-conduct)
+- [More information](#more-information)
 
 ## Overview
 
@@ -194,10 +193,7 @@ Open the project in your IDE to configure the code.
     python manage.py runserver localhost:8000
   ```
 
-- Alternatively, you may use `python -m django run` instead of `django run`
-- Navigate to [http://localhost:8000](http://localhost:8000) in your browser.
-
-> You might run into an invalid certificate error on your browser as we are using self-signed certificates for `https`. If you do, you can ignore that error while running this sample locally.
+- Navigate to [http://localhost:8000](http://localhost:8000) in your browser. (**Don't use** use 127.0.0.1)
 
 ![Experience](./ReadmeFiles/app.png)
 
@@ -297,7 +293,7 @@ As next steps, we can now either [get an Access Token for the users we signed-in
 
 Use [Stack Overflow](https://stackoverflow.com/questions/tagged/msal) to get support from the community.
 Ask your questions on Stack Overflow first and browse existing issues to see if someone has asked your question before.
-Make sure that your questions or comments are tagged with [`azure-active-directory` `ms-identity` `adal` `msal`].
+Make sure that your questions or comments are tagged with [`azure-active-directory` `ms-identity` `python` `msal-python` `msal`].
 
 If you find a bug in the sample, please raise the issue on [GitHub Issues](../../issues).
 
