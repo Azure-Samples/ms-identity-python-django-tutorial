@@ -53,24 +53,24 @@ azure_firewall_command = [
     '--name', 'AllowAllAzureIPs',
 ]
 
-with urllib.request.urlopen('http://ip.42.pl/raw') as f:
-    my_ip = f.read()
+# with urllib.request.urlopen('http://ip.42.pl/raw') as f:
+#     my_ip = f.read()
 
-local_ip_firewall_command = [
-    'az', 'postgres', 'server', 'firewall-rule', 'create',
-    '--resource-group', os.getenv('AZ_GROUP'),
-    '--server-name', os.getenv('POSTGRES_SERVER_NAME'),
-    '--start-ip-address', my_ip,
-    '--end-ip-address', my_ip,
-    '--name', 'AllowMyIP',
-]
+# local_ip_firewall_command = [
+#     'az', 'postgres', 'server', 'firewall-rule', 'create',
+#     '--resource-group', os.getenv('AZ_GROUP'),
+#     '--server-name', os.getenv('POSTGRES_SERVER_NAME'),
+#     '--start-ip-address', my_ip,
+#     '--end-ip-address', my_ip,
+#     '--name', 'AllowMyIP',
+# ]
 
 create_rule = input('Create firewall rules? [y/n]: ')
 if create_rule == 'y':
     print("Allowing access from Azure...")
     subprocess.check_call(azure_firewall_command)
-    print("Allowing access from local IP...")
-    subprocess.check_call(local_ip_firewall_command)
+    # print("Allowing access from local IP...")
+    # subprocess.check_call(local_ip_firewall_command)
 
 
 create_db_command = [

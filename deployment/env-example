@@ -14,25 +14,24 @@
 #    ...
 DJANGO_SETTINGS_MODULE='Sample.azure'
 
-# The Azure Resource Group and Location to use for you applicaiton.
+# The Azure App name, Resource Group, and Location to use for you applicaiton.
 # - If using the VS Code App Service extension to create your app,
 #   use the values it provides
+APP_SERVICE_APP_NAME=''
 AZ_GROUP=''
 AZ_LOCATION=''
 
-# The name you choose for your App Service application.
-APP_SERVICE_APP_NAME=''
-
-# Server Name, Admin User and Admin Password for creating the Azure
+# Server Name, Admin User and Admin Password for creating the Azure, and the application DB name you want to use.
 # PostgreSQL server.
 POSTGRES_SERVER_NAME=''
 POSTGRES_ADMIN_USER=''
 POSTGRES_ADMIN_PASSWORD=''
+APP_DB_NAME=''
 
 # The Azure PostgreSQL server host.
 # This will not be available until after creating the database server.
 # (Will be output at end if running `createdb.py`)
+#output the fully qualified domain name.
 POSTGRES_HOST=''
 
-# The application DB name you want to use.
-APP_DB_NAME=''
+

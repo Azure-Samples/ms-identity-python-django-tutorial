@@ -1,4 +1,4 @@
 django
 requests
 git+https://github.com/azure-samples/ms-identity-python-utilities@main
-psycopg2-binary
+psycopg2
