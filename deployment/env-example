@@ -31,7 +31,7 @@ APP_DB_NAME=''
 # The Azure PostgreSQL server host.
 # This will not be available until after creating the database server.
 # (Will be output at end if running `createdb.py`)
-#output the fully qualified domain name.
+# copy and paste the the "fully qualified domain name" here.
 POSTGRES_HOST=''
 
 
