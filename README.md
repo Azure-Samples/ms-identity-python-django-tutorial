@@ -6,8 +6,8 @@
 - [Registration](#registration)
   - [Register the web app](#register-the-web-app)
 - [Deployment](#deployment)
-  - [Step 1: Prepare the web app for secure deployment (optional)](#step-1-prepare-the-web-app-for-secure-deployment-optional)
-  - [Step 2: Deploy the web app](#step-2-deploy-the-web-app)
+  - [Step 1: Prepare the web app for deployment](#step-1-prepare-the-web-app-for-deployment)
+  - [Step 2: Prepare the app service and database](#step-2-prepare-the-app-service-and-database)
   - [Step 3: Update your Azure AD App Registration](#step-3-update-your-azure-ad-app-registration)
   - [Step 4: Complete your app deployment settings](#step-4-complete-your-app-deployment-settings)
 - [We'd love your feedback!](#wed-love-your-feedback)
@@ -53,10 +53,11 @@ In order to get your deployed app fully functional, you must:
 1. Update your **Azure AD App Registration**'s redirect URIs from the **Azure Portal**, in order to include the redirect URI of your deployed Django application.
 1. Complete your app deployment settings.
 
-### Step 1: Prepare the web app for secure deployment (optional)
+### Step 1: Prepare the web app for deployment
 
-To deploy your app more securely, you must omit any secrets from the aad.config.json and Sample/settings.py file and import them securely into your app.
-You **may skip the rest of this section** and proceed to [Step 2: Deploy the web app](#step-2-deploy-the-web-app) if you are doing a test deployment with a development Azure Active Directory App registration that does not have any sensitive data. **It is not secure to deploy secrets in a config file to a production application**.
+1. (optional) If you plan on interacting with the production Django database from your local machine, you must install postgres dependencies. Go to the requirements.txt file. If you are running on Windows, uncomment the `psycopg2` dependency. If you are running on Mac, uncomment `psycopg2-binary` dependency.
+2. (optional) To deploy your app more securely, you must omit any secrets from the aad.config.json and Sample/settings.py file and import them securely into your app.
+You **may skip the rest of this section** and proceed to [Step 2: Prepare the app service and database](#step-2-prepare-the-app-service-and-database) if you are doing a test deployment with a development Azure Active Directory App registration that does not have any sensitive data. **It is not secure to deploy secrets in a config file to a production application**.
 
 <details>
 
@@ -64,18 +65,18 @@ You **may skip the rest of this section** and proceed to [Step 2: Deploy the web
 
 1. Supply a config file that omits secrets (i.e., `aad.config.json` that sets `"client_credential": null`)
 2. Remove any secrets from the settings.py file.
-3. After completing [Step 2: Deploy the web app](#step-2-deploy-the-web-app) and [Step 3: Update your Azure AD App Registration](#step-3-update-your-azure-ad-app-registration), do not forget to expand the optional section in [Step 4: Complete your app deployment settings](#step-4-complete-your-app-deployment-settings) and complete the instructions
+3. After completing [Step 2: Prepare the app service and database](#step-2-prepare-the-app-service-and-database) and [Step 3: Update your Azure AD App Registration](#step-3-update-your-azure-ad-app-registration), do not forget to expand the optional section in [Step 4: Complete your app deployment settings](#step-4-complete-your-app-deployment-settings) and complete the instructions
 
 </details>
 
-If you are sure you want to continue, proceed to [step 2](#step-2-deploy-the-web-app).
+If you are sure you want to continue, proceed to [Step 2: Prepare the app service and database](#step-2-prepare-the-app-service-and-database).
 
-### Step 2: Deploy the web app
+### Step 2: Prepare the app service and database
 
 This guide is for deploying to **Azure App Service** via **VS Code Azure Tools Extension**.
 
 1. Open the VSCode command palette (ctrl+shift+P on Windows and command+shift+P on Mac).
-1. Choose  `Azure App Service: Create New Web App... (Advanced)
+1. Choose  `Azure App Service: Create New Web App... (Advanced)`
    1. Enter a globally unique name for your web app (e.g. `sams-django-test`) and press enter. Make a note of this name.
    2. Click `+ Create new resource group` and choose a name for it (e.g. `sams-django-test-resource-group`). Press enter. Make a note of this name.
    3. Select `Python 3.8` for your runtime stack.
@@ -86,17 +87,23 @@ This guide is for deploying to **Azure App Service** via **VS Code Azure Tools E
 1. Make a copy of the env-example file in the `deployment` folder at the root of the repository, calling it, for example, `my-azure-settings`
 1. Fill in the following details in it:
    1. APP_SERVICE_APP_NAME from step 2.1
-   2. AZ_RESOURCE_GROUP from step 2.2
+   2. AZ_GROUP from step 2.2
    3. AZ_LOCATION from step 2.7
-1. Now fill in some values for the creating the PostgresDB options.
-   ```
-    POSTGRES_SERVER_NAME='choose a name for your server, e.g. sams-postgres-server'
+1. Now fill in the following values for the creating the Postgres DB.
+
+   ```Shell
+    POSTGRES_SERVER_NAME='choose a globally-unique name for your server, e.g. my-postgres-server'
     POSTGRES_ADMIN_USER='choose an admin user name, e.g. administrator'
     POSTGRES_ADMIN_PASSWORD='choose a password'
-    APP_DB_NAME='db name for your app, e.g. sams-django-test-db'
+    APP_DB_NAME='db name for your app, e.g. my-django-db'
    ```
 
-- Disable App Service's default authentication:
+1. Now export all of the values in this `my-azure-settings` file to your shell. For example, `export VARIABLE = 'value'` in Linux/MacOS or `$env:VARIABLE = 'value'` in powershell. To quickly export all values that are not commented out in bulk in Linux/MacOS, use the command `export $(grep -v '^#' my-azure-settings | xargs)`
+1. From the terminal, run the `create-db.py` file with `python deployment/create-db.py`. Answer all of the questions in the affirmative if it is your first run.
+1. In the last step, you'll be presented with a summary of the postgres DB access details. Make a note of the `fullyQualifiedDomainName`. Copy and paste it into your `my-azure-settings` file under the value `POSTGRES_HOST`.
+1. export this value to your shell  (`export POSTGRES_HOST = 'value that was copied'`) or run the bulk export command from the previous step.
+1. From the terminal, run the `set-deployed-env.py` file to set required environment variables (copied from your shell) to the app service.
+1. Disable App Service's default authentication:
 
     Navigate to the **Azure App Service** Portal and locate your project. Once you do, click on the **Authentication/Authorization** blade. There, make sure that the **App Services Authentication** is switched off (and nothing else is checked), as this sample is using MSAL for authentication.
 
@@ -114,13 +121,13 @@ This guide is for deploying to **Azure App Service** via **VS Code Azure Tools E
 
 ### Step 4: Complete your app deployment settings
 
-Modify your app's `Sample/azure.py` file's allowed hosts as follows, using the full domain name of your app that you recorded in [Step 2: Deploy the web app](#step-2-deploy-the-web-app)
+Modify your app's `Sample/azure.py` file's allowed hosts as follows, using the full domain name of your app that you recorded in [Step 2: Prepare the app service and database](#step-2-prepare-the-app-service-and-database)
 
 ```Python
 ALLOWED_HOSTS = ['https://example-domain.azurewebsites.net']
 ```
 
-You may **skip the following optional section** if you are running a non-production deployment or you have skipped the optional section in [Step 1: Prepare the web app for secure deployment (optional)](#step-1-prepare-the-web-app-for-secure-deployment-optional)
+You may **skip the following optional section** if you are running a non-production deployment or you have skipped the optional  in [Step 1: Prepare the web app for deployment](#step-1-prepare-the-web-app-for-deployment)
 <details>
 
 <summary> expand this section if you elected to deploy app secrets more securely.</summary>
@@ -147,6 +154,8 @@ You have several options for adding your app secrets more securely. The followin
     ```
 
 </details>
+
+Go to the Azure tab on VSCode. Under the `APP SERVICE` toolbox, right click the app name that you created in [Step 2: Prepare the app service and database](#step-2-prepare-the-app-service-and-database) (You may need to refresh the list with the refresh button on the toolbox). Choose `Deploy to Webapp`
 
 ## We'd love your feedback!
 
