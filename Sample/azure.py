@@ -2,6 +2,10 @@ from .settings import *
 ALLOWED_HOSTS = ['*']
 DEBUG = False
 USE_X_FORWARDED_HOST = True # this is so that HTTPS scheme is generated for request.get_absolute_uri (Azure is reverse proxy, Django thinks it is HTTP traffic even when actually HTTPS)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') # this is so that HTTPS scheme is generated for request.get_absolute_uri (Azure is reverse proxy, Django thinks it is HTTP traffic even when actually HTTPS)
+
+
+print("USING AZURE SETTINGS.")
 
 DATABASES = {
     'default': {
