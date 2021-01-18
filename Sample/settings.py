@@ -118,12 +118,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-# PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-# STATIC_ROOT = os.path.join(PROJECT_DIR, 'Sample/static')
-STATIC_URL = 'Sample/static/'
+PROJECT_ROOT = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static').replace('\\','/')
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
      "Sample/static/"
 ]
+
+# MSAL ms_identity_web middleware configs
 from ms_identity_web.configuration import AADConfig
 from ms_identity_web import IdentityWebPython
 AAD_CONFIG = AADConfig.parse_json(file_path='aad.config.json')

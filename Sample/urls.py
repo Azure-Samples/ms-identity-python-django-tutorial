@@ -13,10 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.views.static import serve
 from . import views
 from django.conf import settings
-from django.conf.urls.static import static
 from ms_identity_web.django.msal_views_and_urls import MsalViews
 
 msal_urls = MsalViews(settings.MS_IDENTITY_WEB).url_patterns()
@@ -26,6 +26,6 @@ urlpatterns = [
     path('sign_in_status', views.index, name='status'),
     path('token_details', views.token_details, name='token_details'),
     path('call_ms_graph', views.call_ms_graph, name='call_ms_graph'),
-    path(f'{settings.AAD_CONFIG.django.auth_endpoints.prefix}/', include(msal_urls)),
-    *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
+    path(f'{settings.AAD_CONFIG.django.auth_endpoints.prefix}/', include(msal_urls)), # our pre-configured msal URLs
+    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT})  # for static files
 ]
