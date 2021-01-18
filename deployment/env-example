@@ -12,7 +12,15 @@
 #    $ # Now interact with (e.g.) the production PosgreSQL instance:
 #    $ ./manage.py showmigrations
 #    ...
+
+# Use this to manage.py on the app service and use prod database:
 DJANGO_SETTINGS_MODULE='Sample.azure'
+# OR this to manage.py and use local database (must uncomment it):
+#DJANGO_SETTINGS_MODULE='Sample.azure'
+
+#This tells Azure App service to run this shell file after deployment
+# By default, it contains a migrate command
+POST_BUILD_COMMAND='deployment/post-build.sh'
 
 # The Azure App name, Resource Group, and Location to use for you applicaiton.
 # - If using the VS Code App Service extension to create your app,
