@@ -16,7 +16,7 @@
 # Use this to manage.py on the app service and use prod database:
 DJANGO_SETTINGS_MODULE='Sample.azure'
 # OR this to manage.py and use local database (must uncomment it):
-#DJANGO_SETTINGS_MODULE='Sample.azure'
+#DJANGO_SETTINGS_MODULE='Sample.settings'
 
 #This tells Azure App service to run this shell file after deployment
 # By default, it contains a migrate command
