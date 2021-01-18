@@ -18,7 +18,7 @@
 
 ## Overview
 
-This readme demonstrates how to deploy a Python Django web application to **Azure Cloud** using [Azure App Service](https://docs.microsoft.com/azure/app-service/). It is recommended that the code sample from [Enable your Python Django webapp to sign in users and call Microsoft Graph with the Microsoft identity platform](https://github.com/azure-samples/ms-identity-python-django-webapp-call-graph) is used for deployment. You may choose to follow these steps with a different sample or your own project.
+This readme demonstrates how to deploy a Python Django web application to **Azure Cloud** using [Azure App Service](https://docs.microsoft.com/azure/app-service/). It is recommended that the code sample from [Enable your Python Django webapp to sign in users and call Microsoft Graph with the Microsoft identity platform](https://github.com/azure-samples/ms-identity-python-django-webapp-call-graph) is used for deployment.
 
 ## Prerequisites
 
@@ -35,7 +35,7 @@ Recommended, though not strictly necessary if not running the sample locally as 
 
 ## Setup
 
-Follow the setup instructions in [Enable your Python Django webapp to sign in users and call Microsoft Graph with the Microsoft identity platform](https://github.com/azure-samples/ms-identity-python-django-webapp-call-graph) sample or another Django sample of your choosing from [Microsoft Identity Django Tutorial)](https://github.com/azure-samples/ms-identity-python-django-tutorial).
+Follow the setup instructions in [Enable your Python Django webapp to sign in users and call Microsoft Graph with the Microsoft identity platform](https://github.com/azure-samples/ms-identity-python-django-webapp-call-graph). You may choose to follow these steps with a different sample or your own Django project. If you want to use your own app, be sure to see the `Sample/settings.py` file, the `Sample/azure.py` file, and the files in the `deployment` folder in the call graph sample.
 
 ## Registration
 
