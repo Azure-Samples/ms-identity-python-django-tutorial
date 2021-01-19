@@ -4,7 +4,7 @@ import subprocess
 import sys
 
 REQUIRED_ENV_VARS = (
-    'AZ_GROUP',
+    'AZ_RESOURCE_GROUP',
     'AZ_LOCATION',
     'APP_SERVICE_APP_NAME',
     'POSTGRES_SERVER_NAME',
@@ -12,7 +12,7 @@ REQUIRED_ENV_VARS = (
     'POSTGRES_ADMIN_PASSWORD',
     'APP_DB_NAME',
     'DJANGO_SETTINGS_MODULE',
-    'POST_BUILD_COMMAND'
+    'POST_BUILD_COMMAND',
 )
 
 missing = []
@@ -32,7 +32,7 @@ SETTINGS_KEYS = (
     'POSTGRES_HOST',
     'APP_DB_NAME',
     'DJANGO_SETTINGS_MODULE',
-    'POST_BUILD_COMMAND'
+    'POST_BUILD_COMMAND',
 
 )
 settings_pairs = ['{}={}'.format(k, os.getenv(k)) for k in SETTINGS_KEYS]
@@ -41,7 +41,7 @@ settings_pairs = ['{}={}'.format(k, os.getenv(k)) for k in SETTINGS_KEYS]
 settings_command = [
     'az', 'webapp', 'config', 'appsettings', 'set',
     '--name', os.getenv('APP_SERVICE_APP_NAME'),
-    '--resource-group', os.getenv('AZ_GROUP'),
+    '--resource-group', os.getenv('AZ_RESOURCE_GROUP'),
     '--settings',
 ] + settings_pairs
 

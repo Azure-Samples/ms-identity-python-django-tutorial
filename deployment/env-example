@@ -22,11 +22,11 @@ DJANGO_SETTINGS_MODULE='Sample.azure'
 # By default, it contains a migrate command
 POST_BUILD_COMMAND='deployment/post-build.sh'
 
-# The Azure App name, Resource Group, and Location to use for you applicaiton.
+# The Azure App name, Resource Group, and Location to use for you application.
 # - If using the VS Code App Service extension to create your app,
 #   use the values it provides
 APP_SERVICE_APP_NAME=''
-AZ_GROUP=''
+AZ_RESOURCE_GROUP=''
 AZ_LOCATION=''
 
 # Server Name, Admin User and Admin Password for creating the Azure, and the application DB name you want to use.

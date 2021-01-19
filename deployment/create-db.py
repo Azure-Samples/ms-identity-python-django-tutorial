@@ -5,7 +5,7 @@ import urllib.request
 
 
 REQUIRED_ENV_VARS = (
-    'AZ_GROUP',
+    'AZ_RESOURCE_GROUP',
     'AZ_LOCATION',
     'POSTGRES_SERVER_NAME',
     'POSTGRES_ADMIN_USER',
@@ -28,7 +28,7 @@ if missing:
 #       {pricing tier}_{compute generation}_{vCores}
 create_server_command = [
     'az', 'postgres', 'server', 'create',
-    '--resource-group', os.getenv('AZ_GROUP'),
+    '--resource-group', os.getenv('AZ_RESOURCE_GROUP'),
     '--location', os.getenv('AZ_LOCATION'),
     '--name', os.getenv('POSTGRES_SERVER_NAME'),
     '--admin-user', os.getenv('POSTGRES_ADMIN_USER'),
@@ -46,7 +46,7 @@ if create_server == 'y':
 # Ref: https://docs.microsoft.com/en-gb/cli/azure/postgres/server/firewall-rule?view=azure-cli-latest#az-postgres-server-firewall-rule-create
 azure_firewall_command = [
     'az', 'postgres', 'server', 'firewall-rule', 'create',
-    '--resource-group', os.getenv('AZ_GROUP'),
+    '--resource-group', os.getenv('AZ_RESOURCE_GROUP'),
     '--server-name', os.getenv('POSTGRES_SERVER_NAME'),
     '--start-ip-address', '0.0.0.0',
     '--end-ip-address', '0.0.0.0',
@@ -58,7 +58,7 @@ with urllib.request.urlopen('http://ip.42.pl/raw') as f:
 
 local_ip_firewall_command = [
     'az', 'postgres', 'server', 'firewall-rule', 'create',
-    '--resource-group', os.getenv('AZ_GROUP'),
+    '--resource-group', os.getenv('AZ_RESOURCE_GROUP'),
     '--server-name', os.getenv('POSTGRES_SERVER_NAME'),
     '--start-ip-address', my_ip,
     '--end-ip-address', my_ip,
@@ -75,7 +75,7 @@ if create_rule == 'y':
 
 create_db_command = [
     'az', 'postgres', 'db', 'create',
-    '--resource-group', os.getenv('AZ_GROUP'),
+    '--resource-group', os.getenv('AZ_RESOURCE_GROUP'),
     '--server-name', os.getenv('POSTGRES_SERVER_NAME'),
     '--name', os.getenv('APP_DB_NAME'),
 ]
@@ -88,7 +88,7 @@ if create_app_db == 'y':
 
 connect_details_command = [
     'az', 'postgres', 'server', 'show',
-    '--resource-group', os.getenv('AZ_GROUP'),
+    '--resource-group', os.getenv('AZ_RESOURCE_GROUP'),
     '--name', os.getenv('POSTGRES_SERVER_NAME'),
 ]
 print("Getting access details...")
