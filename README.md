@@ -35,7 +35,7 @@ Recommended, though not strictly necessary if not running the sample locally as 
 
 ## Setup
 
-Follow the setup instructions in [Enable your Python Django webapp to sign in users and call Microsoft Graph with the Microsoft identity platform](https://github.com/azure-samples/ms-identity-python-django-webapp-call-graph). You may choose to follow these steps with a different sample or your own Django project. If you want to use your own app, be sure to see the `Sample/settings.py` file, the `Sample/azure.py` file, and the files in the `deployment` folder in the call graph sample.
+Follow the setup instructions in [Enable your Python Django webapp to sign in users and call Microsoft Graph with the Microsoft identity platform](https://github.com/azure-samples/ms-identity-python-django-webapp-call-graph). You may choose to follow these steps with a different sample or your own Django project. If you want to use a different app, be sure to see the `Sample/settings.py` file, the `Sample/azure.py` file, and the files in the `deployment` folder in the [call graph sample repository](https://github.com/azure-samples/ms-identity-python-django-webapp-call-graph).
 
 ## Registration
 
@@ -55,8 +55,9 @@ In order to get your deployed app fully functional, you must:
 
 ### Step 1: Prepare the web app for deployment
 
-1. (optional) If you plan on interacting with the production Django database from your local machine, you must install postgres dependencies. Go to the requirements.txt file. If you are running on Windows, uncomment the `psycopg2` dependency. If you are running on Mac, uncomment `psycopg2-binary` dependency.
-2. (optional) To deploy your app more securely, you must omit any secrets from the aad.config.json and Sample/settings.py file and import them securely into your app.
+1. Go to the requirements.txt file. Uncomment the `psycopg2` binary before deployment to allow the deployed app to interact with the postgres database that we will set up.
+   1. (optional) If you plan on interacting with the production Django database from your local machine, you must install postgres dependencies locally as well. This will be dependent on what system you're running your code on. Go to the requirements.txt file. If you are running on Windows, uncomment the `psycopg2` dependency. If you are running on MacOS, uncomment `psycopg2-binary` dependency instead (leave `psycopg2` commented out on MacOS installation). Use `pip install -r requirements.txt --upgrade` to install.
+1. (optional) To deploy your app more securely, you must omit any secrets from the aad.config.json and Sample/settings.py file and import them securely into your app.
 You **may skip the rest of this section** and proceed to [Step 2: Prepare the app service and database](#step-2-prepare-the-app-service-and-database) if you are doing a test deployment with a development Azure Active Directory App registration that does not have any sensitive data. **It is not secure to deploy secrets in a config file to a production application**.
 
 <details>
@@ -73,29 +74,29 @@ If you are sure you want to continue, proceed to [Step 2: Prepare the app servic
 
 ### Step 2: Prepare the app service and database
 
-This guide is for deploying to **Azure App Service** via **VS Code Azure Tools Extension**.
+This guide is for deploying to **Azure App Service** via **VS Code Azure Tools Extension**. Follow these steps with your VSCode workspace set to your copy of the [Enable your Python Django webapp to sign in users and call Microsoft Graph with the Microsoft identity platform](https://github.com/azure-samples/ms-identity-python-django-webapp-call-graph).
 
 1. Open the VSCode command palette (ctrl+shift+P on Windows and command+shift+P on Mac).
 1. Choose  `Azure App Service: Create New Web App... (Advanced)`
    1. Enter a globally unique name for your web app (e.g. `sams-django-test`) and press enter. Make a note of this name.
-   2. Click `+ Create new resource group` and choose a name for it (e.g. `sams-django-test-resource-group`). Press enter. Make a note of this name.
+   2. Click `+ Create new resource group` and choose a name for it (e.g. `sams-django-test-rg`). Press enter. Make a note of this name.
    3. Select `Python 3.8` for your runtime stack.
-   4. Click `+ Create new App Service plan` and give it a name  (e.g. `sams-django-test-app-svc-plan`). Press enter.
+   4. Click `+ Create new App Service plan` and give it a name (e.g. `sams-django-test-app-svc-plan`). Press enter.
    5. Choose an app service tier (e.g., `F1 Free`)
    6. Click `Skip for now` for application insights resource
    7. Select a location (e.g. `West US`). Make a note of this as `westus`
 1. Make a copy of the env-example file in the `deployment` folder at the root of the repository, calling it, for example, `my-azure-settings`
 1. Fill in the following details in it:
-   1. APP_SERVICE_APP_NAME from step 2.1
-   2. AZ_GROUP from step 2.2
-   3. AZ_LOCATION from step 2.7
-1. Now fill in the following values for the creating the Postgres DB.
+   1. APP_SERVICE_APP_NAME from step 2.a, e.g., `sams-django-test`
+   2. AZ_RESOURCE_GROUP from step 2.b, e.g., `sams-django-test-rg`
+   3. AZ_LOCATION from step 2.g, e.g., `westus`
+1. Next, also fill in the following configuration values in your `my-azure-settings` file. These values will be used by automation scripts to create the Postgres DB that your deployed app will connect to.
 
    ```Shell
     POSTGRES_SERVER_NAME='choose a globally-unique name for your server, e.g. my-postgres-server'
     POSTGRES_ADMIN_USER='choose an admin user name, e.g. administrator'
     POSTGRES_ADMIN_PASSWORD='choose a password'
-    APP_DB_NAME='db name for your app, e.g. my-django-db'
+    APP_DB_NAME='choose db name for your app, e.g. my-django-db'
    ```
 
 1. Now export all of the values in this `my-azure-settings` file to your shell. For example, `export VARIABLE = 'value'` in Linux/MacOS or `$env:VARIABLE = 'value'` in powershell. To quickly export all values that are not commented out in bulk in Linux/MacOS, use the command `export $(grep -v '^#' my-azure-settings | xargs)`
