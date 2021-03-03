@@ -108,13 +108,13 @@ This guide is for deploying to **Azure App Service** via **VS Code Azure Tools E
 
 1. Go to the requirements.txt file. Uncomment the `psycopg2` dependency before deployment to allow the deployed app to interact with the postgres database that we will set up.
    1. (optional) If you plan on interacting with the production Django database from your local machine, you must install postgres dependencies locally as well. This will be dependent on what system you're running your code on. Go to the requirements.txt file. If you are running on Windows, uncomment the `psycopg2` dependency. If you are running on MacOS, uncomment `psycopg2-binary` dependency instead (leave `psycopg2` commented out on MacOS installation). Use `pip install -r requirements.txt --upgrade` to install.
-1. Modify your app's `Sample/azure.py` file's allowed hosts as follows, using the full domain name of your app that you recorded in [Step 2: Prepare the app service and database](#step-2-prepare-the-app-service-and-database)
+2. Modify your app's `Sample/azure.py` file's allowed hosts as follows, using the full domain name of your app that you recorded in [Step 1: Prepare the app service](#step-1-prepare-the-app-service)
 
    ```Python
    ALLOWED_HOSTS = ['https://example-domain.azurewebsites.net']
    ```
 
-1. (optional) To deploy your app more securely, you must omit any secrets from the aad.config.json and Sample/settings.py file and import them securely into your app. Expand the following section to do so. You **may skip the following optional section** and proceed to [Step 5: Deploy to Azure App Service](#step-5-deploy-to-azure-app-service) if you are doing a test deployment with a development Azure Active Directory App registration that does not have any sensitive data. **It is not secure to deploy secrets in a config file to a production application**.
+3. (optional) To deploy your app more securely, you must omit any secrets from the aad.config.json and Sample/settings.py file and import them securely into your app. Expand the following section to do so. You **may skip the following optional section** and proceed to [Step 5: Deploy to Azure App Service](#step-5-deploy-to-azure-app-service) if you are doing a test deployment with a development Azure Active Directory App registration that does not have any sensitive data. **It is not secure to deploy secrets in a config file to a production application**.
 
 <details>
 
