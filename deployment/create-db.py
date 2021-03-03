@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 import subprocess
 import my_azure_settings
+from platform import system
 
 az_cmd = 'az.cmd' if 'windows' in system().lower() else 'az'
-
 
 REQUIRED_VARS = (
     'AZ_RESOURCE_GROUP',
