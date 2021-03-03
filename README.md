@@ -71,7 +71,7 @@ This guide is for deploying to **Azure App Service** via **VS Code Azure Tools E
 
 ### Step 2: Prepare the PostgreSQL database
 
-1. See the `azure_settings_example.py` file in the `deployment` folder at the root of the `Enable your Python Django webapp to sign in users and call Microsoft Graph with the Microsoft identity platform` sample. Make a copy of this file, calling it, for example, `my_azure_settings.py`
+1. See the `azure_settings_example.py` file in the `deployment` folder at the root of the `Enable your Python Django webapp to sign in users and call Microsoft Graph with the Microsoft identity platform` sample. Make a copy of this file, calling it, for example, `my_azure_settings.py`. Don't check this copy in to source control, as it will contain secrets.
 2. Fill in the following details in it:
    1. APP_SERVICE_APP_NAME from step 2.a, e.g., `example-domain`
    2. AZ_RESOURCE_GROUP from step 2.b, e.g., `example-domain-rg`
