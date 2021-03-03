@@ -1,98 +1,108 @@
 #!/usr/bin/env python3
-import os
 import subprocess
-import urllib.request
+import my_azure_settings
 
 
-REQUIRED_ENV_VARS = (
+REQUIRED_VARS = (
     'AZ_RESOURCE_GROUP',
     'AZ_LOCATION',
     'POSTGRES_SERVER_NAME',
     'POSTGRES_ADMIN_USER',
     'POSTGRES_ADMIN_PASSWORD',
     'APP_DB_NAME',
+    'MY_IP_ADDRESS'
 )
 
 missing = []
-for v in REQUIRED_ENV_VARS:
-    if v not in os.environ:
+for v in REQUIRED_VARS:
+    try:
+        value = my_azure_settings.__getattribute__(v)
+        if not value or str(value).isspace():
+            raise AttributeError
+    except:
         missing.append(v)
+
 if missing:
-    print("Required Environment Variables Unset:")
+    print("Required variables not set in my_azure_settings.py:")
     print("\t" + "\n\t".join(missing))
     print("Exiting.")
     exit()
 
-# Ref: https://docs.microsoft.com/en-gb/cli/azure/postgres/server?view=azure-cli-latest#az-postgres-server-create
-# SKUs: https://docs.microsoft.com/en-us/azure/postgresql/concepts-pricing-tiers
+# Ref: https://docs.microsoft.com/cli/azure/postgres/server?view=azure-cli-latest#az-postgres-server-create
+# SKUs: https://docs.microsoft.com/azure/postgresql/concepts-pricing-tiers
 #       {pricing tier}_{compute generation}_{vCores}
 create_server_command = [
     'az', 'postgres', 'server', 'create',
-    '--resource-group', os.getenv('AZ_RESOURCE_GROUP'),
-    '--location', os.getenv('AZ_LOCATION'),
-    '--name', os.getenv('POSTGRES_SERVER_NAME'),
-    '--admin-user', os.getenv('POSTGRES_ADMIN_USER'),
-    '--admin-password', os.getenv('POSTGRES_ADMIN_PASSWORD'),
+    '--resource-group', my_azure_settings.AZ_RESOURCE_GROUP,
+    '--location', my_azure_settings.AZ_LOCATION,
+    '--name', my_azure_settings.POSTGRES_SERVER_NAME,
+    '--admin-user', my_azure_settings.POSTGRES_ADMIN_USER,
+    '--admin-password', my_azure_settings.POSTGRES_ADMIN_PASSWORD,
     '--sku-name', 'GP_Gen5_2',
 ]
 
 create_server = input('Create PostgreSQL server? [y/n]: ')
 if create_server == 'y':
     print("Creating PostgreSQL server...")
-    subprocess.check_call(create_server_command)
+    print(" ".join(create_server_command))
+    subprocess.run(create_server_command)
 
 
 # Set up firewall.
 # Ref: https://docs.microsoft.com/en-gb/cli/azure/postgres/server/firewall-rule?view=azure-cli-latest#az-postgres-server-firewall-rule-create
 azure_firewall_command = [
     'az', 'postgres', 'server', 'firewall-rule', 'create',
-    '--resource-group', os.getenv('AZ_RESOURCE_GROUP'),
-    '--server-name', os.getenv('POSTGRES_SERVER_NAME'),
+    '--resource-group', my_azure_settings.AZ_RESOURCE_GROUP,
+    '--server-name', my_azure_settings.POSTGRES_SERVER_NAME,
     '--start-ip-address', '0.0.0.0',
     '--end-ip-address', '0.0.0.0',
     '--name', 'AllowAllAzureIPs',
 ]
 
-with urllib.request.urlopen('http://ip.42.pl/raw') as f:
-    my_ip = f.read()
+create_rule = input('Create Azure IPs firewall rules? [y/n]: ')
+if create_rule == 'y':
+    print("Allowing access from Azure...")
+    print(" ".join(azure_firewall_command))
+    subprocess.run(azure_firewall_command)
 
 local_ip_firewall_command = [
     'az', 'postgres', 'server', 'firewall-rule', 'create',
-    '--resource-group', os.getenv('AZ_RESOURCE_GROUP'),
-    '--server-name', os.getenv('POSTGRES_SERVER_NAME'),
-    '--start-ip-address', my_ip,
-    '--end-ip-address', my_ip,
+    '--resource-group', my_azure_settings.AZ_RESOURCE_GROUP,
+    '--server-name', my_azure_settings.POSTGRES_SERVER_NAME,
+    '--start-ip-address', my_azure_settings.MY_IP_ADDRESS,
+    '--end-ip-address', my_azure_settings.MY_IP_ADDRESS,
     '--name', 'AllowMyIP',
 ]
 
-create_rule = input('Create firewall rules? [y/n]: ')
+create_rule = input('Create local IP firewall rules? [y/n]: ')
 if create_rule == 'y':
-    print("Allowing access from Azure...")
-    subprocess.check_call(azure_firewall_command)
-    # print("Allowing access from local IP...")
-    # subprocess.check_call(local_ip_firewall_command)
+    print("Allowing access from local IP...")
+    print(" ".join(local_ip_firewall_command))
+    subprocess.run(local_ip_firewall_command)
 
 
 create_db_command = [
     'az', 'postgres', 'db', 'create',
-    '--resource-group', os.getenv('AZ_RESOURCE_GROUP'),
-    '--server-name', os.getenv('POSTGRES_SERVER_NAME'),
-    '--name', os.getenv('APP_DB_NAME'),
+    '--resource-group', my_azure_settings.AZ_RESOURCE_GROUP,
+    '--server-name', my_azure_settings.POSTGRES_SERVER_NAME,
+    '--name', my_azure_settings.APP_DB_NAME,
 ]
 
 create_app_db = input('Create App DB? [y/n]: ')
 if create_app_db == 'y':
     print("Creating App DB...")
-    subprocess.check_call(create_db_command)
+    print(" ".join(create_db_command))
+    subprocess.run(create_db_command)
 
 
 connect_details_command = [
     'az', 'postgres', 'server', 'show',
-    '--resource-group', os.getenv('AZ_RESOURCE_GROUP'),
-    '--name', os.getenv('POSTGRES_SERVER_NAME'),
+    '--resource-group', my_azure_settings.AZ_RESOURCE_GROUP,
+    '--name', my_azure_settings.POSTGRES_SERVER_NAME,
 ]
 print("Getting access details...")
-subprocess.check_call(connect_details_command)
+print(" ".join(connect_details_command))
+subprocess.run(connect_details_command)
 
 # Connect to Azure using connection string format (to force SSL)
-# psql "host=$POSTGRES_HOST sslmode=require port=5432 user=$POSTGRES_ADMIN_USER@$POSTGRES_SERVER_NAME dbname=postgres" -W
+# psql "host=$POSTGRES_FULLY_QUALIFIED_DOMAIN_NAME sslmode=require port=5432 user=$POSTGRES_ADMIN_USER@$POSTGRES_SERVER_NAME dbname=postgres" -W

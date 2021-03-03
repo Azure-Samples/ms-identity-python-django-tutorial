@@ -22,7 +22,7 @@ DATABASES = {
         'NAME': os.getenv('APP_DB_NAME'),
         'USER': '{}@{}'.format(os.getenv('POSTGRES_ADMIN_USER'), os.getenv('POSTGRES_SERVER_NAME')),
         'PASSWORD': os.getenv('POSTGRES_ADMIN_PASSWORD'),
-        'HOST': os.getenv('POSTGRES_HOST'),
+        'HOST': os.getenv('POSTGRES_FULLY_QUALIFIED_DOMAIN_NAME'),
         'PORT': '5432',
         'OPTIONS': {'sslmode': 'require'},
     }

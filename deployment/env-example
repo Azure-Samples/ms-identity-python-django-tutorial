@@ -41,5 +41,3 @@ APP_DB_NAME=''
 # (Will be output at end if running `createdb.py`)
 # copy and paste the the "fully qualified domain name" here.
 POSTGRES_HOST=''
-
-
