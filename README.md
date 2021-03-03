@@ -6,10 +6,11 @@
 - [Registration](#registration)
   - [Register the web app](#register-the-web-app)
 - [Deployment](#deployment)
-  - [Step 1: Prepare the web app for deployment](#step-1-prepare-the-web-app-for-deployment)
-  - [Step 2: Prepare the app service and database](#step-2-prepare-the-app-service-and-database)
+  - [Step 1: Prepare the app service](#step-1-prepare-the-app-service)
+  - [Step 2: Prepare the PostgreSQL database](#step-2-prepare-the-postgresql-database)
   - [Step 3: Update your Azure AD App Registration](#step-3-update-your-azure-ad-app-registration)
-  - [Step 4: Complete your app deployment settings](#step-4-complete-your-app-deployment-settings)
+  - [Step 4: Prepare your web app for deployment](#step-4-prepare-your-web-app-for-deployment)
+  - [Step 5: Deploy your web app to Azure App Service](#step-5-deploy-your-web-app-to-azure-app-service)
 - [We'd love your feedback!](#wed-love-your-feedback)
 - [More information](#more-information)
 - [Community Help and Support](#community-help-and-support)
@@ -35,7 +36,7 @@ Recommended, though not strictly necessary if not running the sample locally as 
 
 ## Setup
 
-Follow the setup instructions in [Enable your Python Django webapp to sign in users and call Microsoft Graph with the Microsoft identity platform](https://github.com/azure-samples/ms-identity-python-django-webapp-call-graph). You may choose to follow these steps with a different sample or your own Django project. If you want to use a different app, be sure to see the `Sample/settings.py` file, the `Sample/azure.py` file, and the files in the `deployment` folder in the [call graph sample repository](https://github.com/azure-samples/ms-identity-python-django-webapp-call-graph).
+Follow the setup instructions in [Enable your Python Django webapp to sign in users and call Microsoft Graph with the Microsoft identity platform](https://github.com/azure-samples/ms-identity-python-django-webapp-call-graph). You may choose to follow these steps with a different sample or your own Django project. If you want to use a different sample or different app, extra steps will be necessary (be sure to see the `Sample/settings.py` file, the `Sample/azure.py` file, and the files in the `deployment` folder in the [call graph sample repository](https://github.com/azure-samples/ms-identity-python-django-webapp-call-graph)).
 
 ## Registration
 
@@ -46,51 +47,36 @@ If you have not completed a sample yet, we recommend you proceed to complete [En
 
 ## Deployment
 
-In order to get your deployed app fully functional, you must:
+In order to deploy your app, you must:
 
-1. Prepare the web app for deployment.
-1. Deploy your project to **Azure App Service** and obtain a published website in the form of `https://example-domain.azurewebsites.net.`
+1. Prepare the app service and obtain a website URI in the form of `https://example-domain.azurewebsites.net.`
+1. Prepare the PostgreSQL database and set up database connection variables.
 1. Update your **Azure AD App Registration**'s redirect URIs from the **Azure Portal**, in order to include the redirect URI of your deployed Django application.
-1. Complete your app deployment settings.
+1. Prepare your web app for deployment.
+1. Deploy to Azure App Service.
 
-### Step 1: Prepare the web app for deployment
-
-1. Go to the requirements.txt file. Uncomment the `psycopg2` binary before deployment to allow the deployed app to interact with the postgres database that we will set up.
-   1. (optional) If you plan on interacting with the production Django database from your local machine, you must install postgres dependencies locally as well. This will be dependent on what system you're running your code on. Go to the requirements.txt file. If you are running on Windows, uncomment the `psycopg2` dependency. If you are running on MacOS, uncomment `psycopg2-binary` dependency instead (leave `psycopg2` commented out on MacOS installation). Use `pip install -r requirements.txt --upgrade` to install.
-1. (optional) To deploy your app more securely, you must omit any secrets from the aad.config.json and Sample/settings.py file and import them securely into your app.
-You **may skip the rest of this section** and proceed to [Step 2: Prepare the app service and database](#step-2-prepare-the-app-service-and-database) if you are doing a test deployment with a development Azure Active Directory App registration that does not have any sensitive data. **It is not secure to deploy secrets in a config file to a production application**.
-
-<details>
-
-<summary> expand this section if you would like to do deploy app secrets more securely.</summary>
-
-1. Supply a config file that omits secrets (i.e., `aad.config.json` that sets `"client_credential": null`)
-2. Remove any secrets from the settings.py file.
-3. After completing [Step 2: Prepare the app service and database](#step-2-prepare-the-app-service-and-database) and [Step 3: Update your Azure AD App Registration](#step-3-update-your-azure-ad-app-registration), do not forget to expand the optional section in [Step 4: Complete your app deployment settings](#step-4-complete-your-app-deployment-settings) and complete the instructions
-
-</details>
-
-If you are sure you want to continue, proceed to [Step 2: Prepare the app service and database](#step-2-prepare-the-app-service-and-database).
-
-### Step 2: Prepare the app service and database
+### Step 1: Prepare the app service
 
 This guide is for deploying to **Azure App Service** via **VS Code Azure Tools Extension**. Follow these steps with your VSCode workspace set to your copy of the [Enable your Python Django webapp to sign in users and call Microsoft Graph with the Microsoft identity platform](https://github.com/azure-samples/ms-identity-python-django-webapp-call-graph).
 
 1. Open the VSCode command palette (ctrl+shift+P on Windows and command+shift+P on Mac).
-1. Choose  `Azure App Service: Create New Web App... (Advanced)`
-   1. Enter a globally unique name for your web app (e.g. `sams-django-test`) and press enter. Make a note of this name.
-   2. Click `+ Create new resource group` and choose a name for it (e.g. `sams-django-test-rg`). Press enter. Make a note of this name.
+1. Choose  `Azure App Service: Create New Web App... (Advanced)`.
+   1. Enter a globally unique name for your web app (e.g. `example-domain`) and press enter. Make a note of this name.
+   2. Click `+ Create new resource group` and choose a name for it (e.g. `example-domain-rg`). Press enter. Make a note of this name.
    3. Select `Python 3.8` for your runtime stack.
-   4. Click `+ Create new App Service plan` and give it a name (e.g. `sams-django-test-app-svc-plan`). Press enter.
-   5. Choose an app service tier (e.g., `F1 Free`)
-   6. Click `Skip for now` for application insights resource
-   7. Select a location (e.g. `West US`). Make a note of this as `westus`
-1. Make a copy of the env-example file in the `deployment` folder at the root of the repository, calling it, for example, `my-azure-settings`
-1. Fill in the following details in it:
-   1. APP_SERVICE_APP_NAME from step 2.a, e.g., `sams-django-test`
-   2. AZ_RESOURCE_GROUP from step 2.b, e.g., `sams-django-test-rg`
+   4. Click `+ Create new App Service plan` and give it a name (e.g. `example-domain-app-svc-plan`). Press enter.
+   5. Choose an app service tier (e.g., `F1 Free`).
+   6. Click `Skip for now` for application insights resource.
+   7. Select a location (e.g. `West US`). Make a note of this as `westus`.
+
+### Step 2: Prepare the PostgreSQL database
+
+1. See the `azure_settings_example.py` file in the `deployment` folder at the root of the `Enable your Python Django webapp to sign in users and call Microsoft Graph with the Microsoft identity platform` sample. Make a copy of this file, calling it, for example, `my_azure_settings.py`
+2. Fill in the following details in it:
+   1. APP_SERVICE_APP_NAME from step 2.a, e.g., `example-domain`
+   2. AZ_RESOURCE_GROUP from step 2.b, e.g., `example-domain-rg`
    3. AZ_LOCATION from step 2.g, e.g., `westus`
-1. Next, also fill in the following configuration values in your `my-azure-settings` file. These values will be used by automation scripts to create the Postgres DB that your deployed app will connect to.
+3. Next, also fill in the following configuration values in your `my_azure_settings.py` file. These values will be used by automation scripts to create the Postgres DB that your deployed app will connect to.
 
    ```Shell
     POSTGRES_SERVER_NAME='choose a globally-unique name for your server, e.g. my-postgres-server'
@@ -99,12 +85,11 @@ This guide is for deploying to **Azure App Service** via **VS Code Azure Tools E
     APP_DB_NAME='choose db name for your app, e.g. my-django-db'
    ```
 
-1. Now export all of the values in this `my-azure-settings` file to your shell. For example, `export VARIABLE = 'value'` in Linux/MacOS or `$env:VARIABLE = 'value'` in powershell. To quickly export all values that are not commented out in bulk in Linux/MacOS, use the command `export $(grep -v '^#' my-azure-settings | xargs)`
-1. From the terminal, run the `create-db.py` file with `python deployment/create-db.py`. Answer all of the questions in the affirmative if it is your first run.
-1. In the last step, you'll be presented with a summary of the postgres DB access details. Make a note of the `fullyQualifiedDomainName`. Copy and paste it into your `my-azure-settings` file under the value `POSTGRES_HOST`.
-1. export this value to your shell  (`export POSTGRES_HOST = 'value that was copied'`) or run the bulk export command from the previous step.
-1. From the terminal, run the `set-deployed-env.py` file to set required environment variables (copied from your shell) to the app service.
-1. Disable App Service's default authentication:
+4. From the terminal, run the `create-db.py` file with `python deployment/create-db.py`. Answer all of the questions in the affirmative if it is your first run.
+5. In the last step, you'll be presented with a summary of the postgres DB access details. Make a note of the `fullyQualifiedDomainName`. Copy and paste it into your `my_azure_settings.py` file as the value for `POSTGRES_FULLY_QUALIFIED_DOMAIN_NAME`.
+6. export this value to your shell  (`export POSTGRES_FULLY_QUALIFIED_DOMAIN_NAME = 'value that was copied'`) or run the bulk export command from the previous step.
+7. From the terminal, run the `set_deployed_env.py` file to set required environment variables (copied from your shell) to the app service.
+8. Disable App Service's default authentication:
 
     Navigate to the **Azure App Service** Portal and locate your project. Once you do, click on the **Authentication/Authorization** blade. There, make sure that the **App Services Authentication** is switched off (and nothing else is checked), as this sample is using MSAL for authentication.
 
@@ -118,24 +103,28 @@ This guide is for deploying to **Azure App Service** via **VS Code Azure Tools E
 - In the resulting screen, select the name of your application.
 - In the Authentication blade, paste the URI you copied earlier from your deployed app instance. If the app had multiple redirect URIs, make sure to add new corresponding entries using the App service's full domain in lieu of `localhost:8000` for each redirect URI. Save the configuration.
 - From the *Branding* menu, update the **Home page URL**, to the address of your service, for example `https://example-domain.azurewebsites.net/`. Save the configuration.
-- You're done! Try navigating to the hosted app!
 
-### Step 4: Complete your app deployment settings
+### Step 4: Prepare your web app for deployment
 
-Modify your app's `Sample/azure.py` file's allowed hosts as follows, using the full domain name of your app that you recorded in [Step 2: Prepare the app service and database](#step-2-prepare-the-app-service-and-database)
+1. Go to the requirements.txt file. Uncomment the `psycopg2` dependency before deployment to allow the deployed app to interact with the postgres database that we will set up.
+   1. (optional) If you plan on interacting with the production Django database from your local machine, you must install postgres dependencies locally as well. This will be dependent on what system you're running your code on. Go to the requirements.txt file. If you are running on Windows, uncomment the `psycopg2` dependency. If you are running on MacOS, uncomment `psycopg2-binary` dependency instead (leave `psycopg2` commented out on MacOS installation). Use `pip install -r requirements.txt --upgrade` to install.
+1. Modify your app's `Sample/azure.py` file's allowed hosts as follows, using the full domain name of your app that you recorded in [Step 2: Prepare the app service and database](#step-2-prepare-the-app-service-and-database)
 
-```Python
-ALLOWED_HOSTS = ['https://example-domain.azurewebsites.net']
-```
+   ```Python
+   ALLOWED_HOSTS = ['https://example-domain.azurewebsites.net']
+   ```
 
-You may **skip the following optional section** if you are running a non-production deployment or you have skipped the optional  in [Step 1: Prepare the web app for deployment](#step-1-prepare-the-web-app-for-deployment)
+1. (optional) To deploy your app more securely, you must omit any secrets from the aad.config.json and Sample/settings.py file and import them securely into your app. Expand the following section to do so. You **may skip the following optional section** and proceed to [Step 5: Deploy to Azure App Service](#step-5-deploy-to-azure-app-service) if you are doing a test deployment with a development Azure Active Directory App registration that does not have any sensitive data. **It is not secure to deploy secrets in a config file to a production application**.
+
 <details>
 
 <summary> expand this section if you elected to deploy app secrets more securely.</summary>
 
 You have several options for adding your app secrets more securely. The following two examples demonstrate using Azure Vault **or** environment variables to add secrets removed from the `aad.config.json` file. Other secrets from your settings files should also be added in a similar method.
 
- 1. **Azure Vault**. Use the [Azure Key Vault Secret client library for Python](https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/keyvault/azure-keyvault-secrets). Set the client secret value in vault, naming it `CLIENT_SECRET` for example. Then set up the Azure key vault client in your app, and modify the `Sample/settings.py` file as follows:
+ 1. Supply a config file that omits secrets (i.e., `aad.config.json` that sets `"client_credential": null`)
+ 2. Remove any secrets from the settings.py file.
+ 3. **Azure Vault**. Use the [Azure Key Vault Secret client library for Python](https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/keyvault/azure-keyvault-secrets). Set the client secret value in vault, naming it `CLIENT_SECRET` for example. Then set up the Azure key vault client in your app, and modify the `Sample/settings.py` file as follows:
 
     ```Python
     # find the following line in the settings file.
@@ -145,7 +134,7 @@ You have several options for adding your app secrets more securely. The followin
     # Note: secret_client is your fully set up Azure Key Vault Secret client library for Python (https://github.com/Azure/azure-sdk-for-python/tree/master/sdk/keyvault/azure-keyvault-secrets). You must set it up as per instructions on the Azure Key Vault Secret client library for Python page.
     ```
 
- 2. **Environment Variables** (*Azure Portal > App Services > `Your App` > Configuration*). You must set the value for `CLIENT_SECRET`. Modify the `Sample/settings.py` file as follows:
+ 4. **Environment Variables** (*Azure Portal > App Services > `Your App` > Configuration*). You must set the value for `CLIENT_SECRET`. Modify the `Sample/settings.py` file as follows:
 
     ```Python
     # find the following line in the settings file.
@@ -156,7 +145,31 @@ You have several options for adding your app secrets more securely. The followin
 
 </details>
 
-Go to the Azure tab on VSCode. Under the `APP SERVICE` toolbox, right click the app name that you created in [Step 2: Prepare the app service and database](#step-2-prepare-the-app-service-and-database) (You may need to refresh the list with the refresh button on the toolbox). Choose `Deploy to Webapp`
+### Step 5: Deploy your web app to Azure App Service
+
+Go to the Azure tab on VSCode. Under the `APP SERVICE` toolbox, right click the app name that you created in [Step 1: Prepare the app service and database](#step-1-prepare-the-app-service) (You may need to refresh the list with the refresh button on the toolbox). Choose `Deploy to Webapp`. Once the deployment completes, you're done! Try navigating to the hosted app!
+
+#### Using Manage.py
+
+Depending on which instance of the database (local or deployed) you want to work on from your command line, you must set a local environment variable from your terminal. Working with the local database is straight-forward. In Linux/Unix/MacOS, export the `DJANGO_SETTINGS_MODULE` environment variable and run manage.py as follows:
+
+```bash
+# Set this environment variable so that manage.py works on your local database:
+DJANGO_SETTINGS_MODULE='Sample.settings'
+# Run manage.py, e.g. migrate
+python manage.py migrate
+```
+
+To work with the deployed database, you'll need to first export all of the values in the `my_azure_settings.py` file to the environment. In this case, the default Python script is interpretable by bash, so all that needs to be done is to run it. Then, export the `DJANGO_SETTINGS_MODULE` environment variable from the same terminal window and run manage.py as follows:
+
+```bash
+# Export the environment variables required by Sample.azure:
+source deployment/my_azure_settings.py
+# Set this so that manage.py works on the app service and use prod database:
+DJANGO_SETTINGS_MODULE='Sample.azure'
+# Run manage.py, e.g. migrate
+python manage.py migrate
+```
 
 ## We'd love your feedback!
 
