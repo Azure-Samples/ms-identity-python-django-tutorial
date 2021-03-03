@@ -2,6 +2,8 @@
 import subprocess
 import my_azure_settings
 
+az_cmd = 'az.cmd' if 'windows' in system().lower() else 'az'
+
 
 REQUIRED_VARS = (
     'AZ_RESOURCE_GROUP',
@@ -32,7 +34,7 @@ if missing:
 # SKUs: https://docs.microsoft.com/azure/postgresql/concepts-pricing-tiers
 #       {pricing tier}_{compute generation}_{vCores}
 create_server_command = [
-    'az', 'postgres', 'server', 'create',
+    az_cmd, 'postgres', 'server', 'create',
     '--resource-group', my_azure_settings.AZ_RESOURCE_GROUP,
     '--location', my_azure_settings.AZ_LOCATION,
     '--name', my_azure_settings.POSTGRES_SERVER_NAME,
@@ -51,7 +53,7 @@ if create_server == 'y':
 # Set up firewall.
 # Ref: https://docs.microsoft.com/en-gb/cli/azure/postgres/server/firewall-rule?view=azure-cli-latest#az-postgres-server-firewall-rule-create
 azure_firewall_command = [
-    'az', 'postgres', 'server', 'firewall-rule', 'create',
+    az_cmd, 'postgres', 'server', 'firewall-rule', 'create',
     '--resource-group', my_azure_settings.AZ_RESOURCE_GROUP,
     '--server-name', my_azure_settings.POSTGRES_SERVER_NAME,
     '--start-ip-address', '0.0.0.0',
@@ -66,7 +68,7 @@ if create_rule == 'y':
     subprocess.run(azure_firewall_command)
 
 local_ip_firewall_command = [
-    'az', 'postgres', 'server', 'firewall-rule', 'create',
+    az_cmd, 'postgres', 'server', 'firewall-rule', 'create',
     '--resource-group', my_azure_settings.AZ_RESOURCE_GROUP,
     '--server-name', my_azure_settings.POSTGRES_SERVER_NAME,
     '--start-ip-address', my_azure_settings.MY_IP_ADDRESS,
@@ -82,7 +84,7 @@ if create_rule == 'y':
 
 
 create_db_command = [
-    'az', 'postgres', 'db', 'create',
+    az_cmd, 'postgres', 'db', 'create',
     '--resource-group', my_azure_settings.AZ_RESOURCE_GROUP,
     '--server-name', my_azure_settings.POSTGRES_SERVER_NAME,
     '--name', my_azure_settings.APP_DB_NAME,
@@ -96,7 +98,7 @@ if create_app_db == 'y':
 
 
 connect_details_command = [
-    'az', 'postgres', 'server', 'show',
+    az_cmd, 'postgres', 'server', 'show',
     '--resource-group', my_azure_settings.AZ_RESOURCE_GROUP,
     '--name', my_azure_settings.POSTGRES_SERVER_NAME,
 ]

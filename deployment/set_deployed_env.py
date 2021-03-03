@@ -1,7 +1,9 @@
 #! /usr/bin/env python3
 import subprocess
-import sys
 import my_azure_settings
+from platform import system
+
+az_cmd = 'az.cmd' if 'windows' in system().lower() else 'az'
 
 REQUIRED_VARS = (
     'AZ_RESOURCE_GROUP',
@@ -43,7 +45,7 @@ settings_pairs = [f'{k}={my_azure_settings.__getattribute__(k)}' for k in SETTIN
 
 # https://docs.microsoft.com/cli/azure/webapp/config/appsettings?view=azure-cli-latest#az-webapp-config-appsettings-set
 settings_command = [
-    'az', 'webapp', 'config', 'appsettings', 'set',
+    az_cmd, 'webapp', 'config', 'appsettings', 'set',
     '--name', my_azure_settings.APP_SERVICE_APP_NAME,
     '--resource-group', my_azure_settings.AZ_RESOURCE_GROUP,
     '--settings',
