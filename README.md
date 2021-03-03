@@ -147,7 +147,7 @@ You have several options for adding your app secrets more securely. The followin
 
 ### Step 5: Deploy your web app to Azure App Service
 
-Go to the Azure tab on VSCode. Under the `APP SERVICE` toolbox, right click the app name that you created in [Step 1: Prepare the app service and database](#step-1-prepare-the-app-service) (You may need to refresh the list with the refresh button on the toolbox). Choose `Deploy to Webapp`. Once the deployment completes, you're done! Try navigating to the hosted app!
+Go to the Azure tab on VSCode. Under the `APP SERVICE` toolbox, find the app name that you created in [Step 1: Prepare the app service and database](#step-1-prepare-the-app-service) (You may need to refresh the list with the refresh button on the toolbox). Right click it, and choose `Deploy to Web App`. Once the deployment completes, you're done! Try navigating to the hosted app!
 
 #### Using Manage.py
 
