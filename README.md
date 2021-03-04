@@ -105,9 +105,8 @@ This guide is for deploying to **Azure App Service** via **VS Code Azure Tools E
 
 ### Step 4: Prepare your web app for deployment
 
-1. Go to the requirements.txt file. Uncomment the `psycopg2` dependency before deployment to allow the deployed app to interact with the postgres database that we will set up.
-   1. (optional) If you plan on interacting with the production Django database from your local machine, you must install postgres dependencies locally as well. This will be dependent on what system you're running your code on. Go to the requirements.txt file. If you are running on Windows, uncomment the `psycopg2` dependency. If you are running on MacOS, uncomment `psycopg2-binary` dependency instead (leave `psycopg2` commented out on MacOS installation). Use `pip install -r requirements.txt --upgrade` to install.
-2. Modify your app's `Sample/azure.py` file's allowed hosts as follows, using the full domain name of your app that you recorded in [Step 1: Prepare the app service](#step-1-prepare-the-app-service)
+1. Go to the requirements.txt file. Uncomment the `psycopg2` dependency before deployment to allow the deployed app to interact with the postgres database that we will set up. Save the file.
+2. Modify your app's `Sample/azure.py` file's allowed hosts as follows, using the full domain name of your app that you recorded in [Step 1: Prepare the app service](#step-1-prepare-the-app-service). Save the file.
 
    ```Python
    # Substitute the subdomain name you got from creating this app service app (step 1).
@@ -160,7 +159,9 @@ DJANGO_SETTINGS_MODULE='Sample.settings'
 python manage.py migrate
 ```
 
-To work with the deployed database, you'll need to first export all of the values in the `my_azure_settings.py` file to the environment. In this case, the default Python script is interpretable by bash, so all that needs to be done is to run it. Then, export the `DJANGO_SETTINGS_MODULE` environment variable from the same terminal window and run manage.py as follows:
+If you plan on interacting with the production Django database from your local machine, you must install postgres dependencies locally as well. This will be dependent on what system you're running your code on. Go to the requirements.txt file. If you are running on Windows, uncomment the `psycopg2` dependency. If you are running on MacOS, uncomment `psycopg2-binary` dependency instead (leave `psycopg2` commented out on MacOS installation). Use `pip install -r requirements.txt --upgrade` to install.
+
+Then you'll need to export all of the values in the `my_azure_settings.py` file to the environment. In this case, the existing Python script is interpretable by bash, so all that needs to be done is to run it using `source deployment/my_azure_settings.py`. Then, export the `DJANGO_SETTINGS_MODULE` environment variable from the same terminal window and run manage.py as follows:
 
 ```bash
 # Export the environment variables required by Sample.azure:
