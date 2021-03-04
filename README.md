@@ -73,9 +73,9 @@ This guide is for deploying to **Azure App Service** via **VS Code Azure Tools E
 
 1. See the `azure_settings_example.py` file in the `deployment` folder at the root of the `Enable your Python Django webapp to sign in users and call Microsoft Graph with the Microsoft identity platform` sample. Make a copy of this file, calling it, for example, `my_azure_settings.py`. Don't check this copy in to source control, as it will contain secrets.
 2. Fill in the following details in it:
-   1. APP_SERVICE_APP_NAME from step 2.a, e.g., `example-domain`
-   2. AZ_RESOURCE_GROUP from step 2.b, e.g., `example-domain-rg`
-   3. AZ_LOCATION from step 2.g, e.g., `westus`
+   1. APP_SERVICE_APP_NAME from [Step 1: Prepare the app service](#step-1-prepare-the-app-service) 2.a, e.g., **`example-domain`** (**not** `example-domain.azurewebsites.net`)
+   2. AZ_RESOURCE_GROUP from [Step 1: Prepare the app service](#step-1-prepare-the-app-service) 2.b, e.g., `example-domain-rg`
+   3. AZ_LOCATION from [Step 1: Prepare the app service](#step-1-prepare-the-app-service) 2.g, e.g., `westus`
 3. Next, also fill in the following configuration values in your `my_azure_settings.py` file. These values will be used by automation scripts to create the Postgres DB that your deployed app will connect to.
 
    ```Shell
@@ -85,10 +85,10 @@ This guide is for deploying to **Azure App Service** via **VS Code Azure Tools E
     APP_DB_NAME='choose db name for your app, e.g. my-django-db'
    ```
 
-4. From the terminal, run the `create-db.py` file using the command `python deployment/create-db.py`. Answer all of the questions in the affirmative if it is your first run.
+4. From the terminal, run the `create-db.py` script using the command `python deployment/create-db.py`. Answer all of the questions in the affirmative if it is your first run.
 5. In the last step, you'll be presented with a summary of the postgres DB access details. Make a note of the `fullyQualifiedDomainName`. Copy and paste it into your `my_azure_settings.py` file as the value for `POSTGRES_FULLY_QUALIFIED_DOMAIN_NAME`.
 6. export this value to your shell  (`export POSTGRES_FULLY_QUALIFIED_DOMAIN_NAME = 'value that was copied'`) or run the bulk export command from the previous step.
-7. From the terminal, the `set_deployed_env.py` file using the command `python deployment/set_deployed_env.py` to set required environment variables (copied from your shell) to the app service.
+7. From the terminal, run the `set_deployed_env.py` script using the command `python deployment/set_deployed_env.py` to set required environment variables (copied from your shell) to the app service.
 8. Disable App Service's default authentication:
 
     Navigate to the **Azure App Service** Portal and locate your project. Once you do, click on the **Authentication/Authorization** blade. There, make sure that the **App Services Authentication** is switched off (and nothing else is checked), as this sample is using MSAL for authentication.
@@ -111,6 +111,7 @@ This guide is for deploying to **Azure App Service** via **VS Code Azure Tools E
 2. Modify your app's `Sample/azure.py` file's allowed hosts as follows, using the full domain name of your app that you recorded in [Step 1: Prepare the app service](#step-1-prepare-the-app-service)
 
    ```Python
+   # Substitute the subdomain name you got from creating this app service app (step 1).
    ALLOWED_HOSTS = ['https://example-domain.azurewebsites.net']
    ```
 
