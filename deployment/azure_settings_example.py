@@ -12,6 +12,7 @@ POST_BUILD_COMMAND='deployment/post-build.sh'
 
 # The Azure App name, Resource Group, and Location to use for you application.
 # FILL IN THESE VALUES! THEY ARE REQUIRED
+# app service app name should not include the https:// or the .azurewebsites.net portion (e.g., `example-domain` and not `example-domain.azurewebsites.net`)
 APP_SERVICE_APP_NAME=''
 AZ_RESOURCE_GROUP=''
 AZ_LOCATION=''
@@ -23,14 +24,14 @@ POSTGRES_ADMIN_USER=''
 POSTGRES_ADMIN_PASSWORD=''
 APP_DB_NAME=''
 
-# Public IP address of the machine you're working from
-# This is required if you're looking to manage the Django database from your local machine's command line
-# Find this by going to Bing search or Google search with the search term "What is my IP"
-# This is REQUIRED if you plan on using manage.py commands on the PostgreSQL DB from your local machine.
-MY_IP_ADDRESS='0.0.0.0'
-
 # The Azure PostgreSQL server host.
 # This will not be available until after creating the database server.
 # (Will be output at end if running `createdb.py`)
 # copy and paste the the "fully qualified domain name" here.
 POSTGRES_FULLY_QUALIFIED_DOMAIN_NAME=''
+
+# Public IP address of the machine you're working from
+# This is required if you're looking to manage the Django database from your local machine's command line
+# Find this by going to Bing search or Google search with the search term "What is my IP"
+# This is REQUIRED if you plan on using manage.py commands on the PostgreSQL DB from your local machine.
+MY_IP_ADDRESS='0.0.0.0'
