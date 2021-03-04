@@ -87,9 +87,8 @@ This guide is for deploying to **Azure App Service** via **VS Code Azure Tools E
 
 4. From the terminal, run the `create-db.py` script using the command `python deployment/create-db.py`. Answer all of the questions in the affirmative if it is your first run.
 5. In the last step, you'll be presented with a summary of the postgres DB access details. Make a note of the `fullyQualifiedDomainName`. Copy and paste it into your `my_azure_settings.py` file as the value for `POSTGRES_FULLY_QUALIFIED_DOMAIN_NAME`.
-6. export this value to your shell  (`export POSTGRES_FULLY_QUALIFIED_DOMAIN_NAME = 'value that was copied'`) or run the bulk export command from the previous step.
-7. From the terminal, run the `set_deployed_env.py` script using the command `python deployment/set_deployed_env.py` to set required environment variables (copied from your shell) to the app service.
-8. Disable App Service's default authentication:
+6. From the terminal, run the `set_deployed_env.py` script using the command `python deployment/set_deployed_env.py` to set required environment variables (copied from your shell) to the app service.
+7. Disable App Service's default authentication:
 
     Navigate to the **Azure App Service** Portal and locate your project. Once you do, click on the **Authentication/Authorization** blade. There, make sure that the **App Services Authentication** is switched off (and nothing else is checked), as this sample is using MSAL for authentication.
 
