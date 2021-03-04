@@ -73,10 +73,10 @@ This guide is for deploying to **Azure App Service** via **VS Code Azure Tools E
 
 1. See the `azure_settings_example.py` file in the `deployment` folder at the root of the `Enable your Python Django webapp to sign in users and call Microsoft Graph with the Microsoft identity platform` sample. Make a copy of this file, calling it, for example, `my_azure_settings.py`. Don't check this copy in to source control, as it will contain secrets.
 2. Fill in the following details in it:
-   1. APP_SERVICE_APP_NAME from [Step 1: Prepare the app service](#step-1-prepare-the-app-service) 2.a, e.g., **`example-domain`** (**not** `example-domain.azurewebsites.net`)
-   2. AZ_RESOURCE_GROUP from [Step 1: Prepare the app service](#step-1-prepare-the-app-service) 2.b, e.g., `example-domain-rg`
-   3. AZ_LOCATION from [Step 1: Prepare the app service](#step-1-prepare-the-app-service) 2.g, e.g., `westus`
-3. Next, also fill in the following configuration values in your `my_azure_settings.py` file. These values will be used by automation scripts to create the Postgres DB that your deployed app will connect to.
+   1. APP_SERVICE_APP_NAME from [Step 1: Prepare the app service](#step-1-prepare-the-app-service) 2.i., e.g., **`example-domain`** (**not** `example-domain.azurewebsites.net`)
+   2. AZ_RESOURCE_GROUP from [Step 1: Prepare the app service](#step-1-prepare-the-app-service) 2.ii., e.g., `example-domain-rg`
+   3. AZ_LOCATION from [Step 1: Prepare the app service](#step-1-prepare-the-app-service) 2.vii., e.g., `westus`
+3. Next, also fill in the following configuration values in your `my_azure_settings.py` file. These values will be used by automation scripts to create the PostgreSQL DB that your deployed app will connect to.
 
    ```Shell
     POSTGRES_SERVER_NAME='choose a globally-unique name for your server, e.g. my-postgres-server'
