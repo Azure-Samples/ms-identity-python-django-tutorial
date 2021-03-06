@@ -1,0 +1,44 @@
+{
+    "Sample": {
+      "Title": "Enable your Python Django web app to sign in users to your Azure Active Directory tenant with the Microsoft identity platform",
+      "Level": 100,
+      "Client": "Python Django web app",
+      "Service": "N/A",
+      "RepositoryUrl": "ms-identity-python-django-webapp-authentication",
+      "Endpoint": "AAD v2.0"
+    },
+    "AADApps": [
+      {
+        "Id": "webApp",
+        "Name": "python-django-webapp-authn",
+        "Kind": "WebApp",
+        "Audience": "AzureADMyOrg",
+        "PasswordCredentials": "Auto",
+        "AllowImplicitFlow": false,
+        "HomePage": "http://localhost:8000",
+        "ReplyUrls": "http://localhost:8000/auth/redirect",
+        "RequiredResourcesAccess": []
+      }
+    ],
+    "CodeConfiguration": [
+      {
+        "App": "webApp",
+        "SettingKind": "Replace",
+        "SettingFile": "\\..\\aad.config.json",
+        "Mappings": [
+          {
+            "key": "{enter-your-tenant-id-here}",
+            "value": "$tenantId"
+          },
+          {
+            "key": "{enter-your-client-id-here}",
+            "value": "webApp.AppId"
+          },
+          {
+            "key": "{enter-your-client-secret-here}",
+            "value": ".AppKey"
+          }
+        ]
+      }
+    ]
+  }

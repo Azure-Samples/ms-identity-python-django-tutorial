@@ -1,0 +1,16 @@
+{% extends '../content.html' %}
+
+{% block header %}
+    ID Token Details
+{% endblock %}
+
+{% block text %}
+    {% for claim, value in claims_to_display.items %}
+            <strong>{{ claim }}:</strong> {{ value }}
+            <br>
+    {% endfor %}
+    <br>
+    Click here to see your <a class="btn btn-info p-1" href="{% url 'index' %}">Sign-in Status</a>
+{% endblock %}
+
+    
