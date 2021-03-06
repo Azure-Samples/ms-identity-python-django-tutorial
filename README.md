@@ -12,7 +12,7 @@ products:
 - azure-active-directory-b2c
 - microsoft-identity-platform
 description: "Tutorial: Enable your Python Django webapp to Sign-in users, protect endpoints, and call APIs with the Microsoft identity platform"
-urlFragment: "ms-identity-python-flask-tutorial"
+urlFragment: "ms-identity-python-django-tutorial"
 ---
 
 # Tutorial: Enable your Python Django web app to sign in users and call APIs with the Microsoft identity platform
