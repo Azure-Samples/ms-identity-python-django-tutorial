@@ -12,29 +12,28 @@ description: "This sample demonstrates a Python Django webapp that signs in user
 ---
 # Enable your Python Django webapp to sign in users to your Azure Active Directory B2C tenant with the Microsoft identity platform
 
-- [Enable your Python Django webapp to sign in users to your Azure Active Directory B2C tenant with the Microsoft identity platform](#enable-your-python-django-webapp-to-sign-in-users-to-your-azure-active-directory-b2c-tenant-with-the-microsoft-identity-platform)
-  - [Overview](#overview)
-  - [Scenario](#scenario)
-  - [Contents](#contents)
-  - [Prerequisites](#prerequisites)
-  - [Setup](#setup)
-    - [Step 1: Clone or download this repository](#step-1-clone-or-download-this-repository)
-    - [Step 2: Install project dependencies](#step-2-install-project-dependencies)
-    - [Register the sample application with your Azure AD B2C tenant](#register-the-sample-application-with-your-azure-ad-b2c-tenant)
-    - [Choose the Azure AD B2C tenant where you want to create your applications](#choose-the-azure-ad-b2c-tenant-where-you-want-to-create-your-applications)
-    - [Create User Flows and Custom Policies](#create-user-flows-and-custom-policies)
-    - [Add External Identity Providers](#add-external-identity-providers)
-    - [Register the webapp (b2c-python-django-webapp-auth)](#register-the-webapp-b2c-python-django-webapp-auth)
-  - [Running the sample](#running-the-sample)
-  - [Explore the sample](#explore-the-sample)
-  - [We'd love your feedback!](#wed-love-your-feedback)
-  - [About the code](#about-the-code)
-    - [Under the hood](#under-the-hood)
-  - [Deploy to Azure](#deploy-to-azure)
-  - [More information](#more-information)
-  - [Community Help and Support](#community-help-and-support)
-  - [Contributing](#contributing)
-  - [Code of Conduct](#code-of-conduct)
+- [Overview](#overview)
+- [Scenario](#scenario)
+- [Contents](#contents)
+- [Prerequisites](#prerequisites)
+- [Setup](#setup)
+  - [Step 1: Clone or download this repository](#step-1-clone-or-download-this-repository)
+  - [Step 2: Install project dependencies](#step-2-install-project-dependencies)
+  - [Register the sample application with your Azure AD B2C tenant](#register-the-sample-application-with-your-azure-ad-b2c-tenant)
+  - [Choose the Azure AD B2C tenant where you want to create your applications](#choose-the-azure-ad-b2c-tenant-where-you-want-to-create-your-applications)
+  - [Create User Flows and Custom Policies](#create-user-flows-and-custom-policies)
+  - [Add External Identity Providers](#add-external-identity-providers)
+  - [Register the webapp (b2c-python-django-webapp-auth)](#register-the-webapp-b2c-python-django-webapp-auth)
+- [Running the sample](#running-the-sample)
+- [Explore the sample](#explore-the-sample)
+- [We'd love your feedback!](#wed-love-your-feedback)
+- [About the code](#about-the-code)
+  - [Under the hood](#under-the-hood)
+- [Deploy to Azure](#deploy-to-azure)
+- [More information](#more-information)
+- [Community Help and Support](#community-help-and-support)
+- [Contributing](#contributing)
+- [Code of Conduct](#code-of-conduct)
 
 <!-- ![Build badge](https://identitydivision.visualstudio.com/_apis/public/build/definitions/a7934fdd-dcde-4492-a406-7fad6ac00e17/<BuildNumber>/badge)-->
 
@@ -55,10 +54,18 @@ This sample demonstrates a Python Django webapp that authenticates users with Az
 
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
-|`app.py`           | The sample app code.                       |
-|`CHANGELOG.md`     | List of changes to the sample.             |
-|`CONTRIBUTING.md`  | Guidelines for contributing to the sample. |
-|`LICENSE`          | The license for the sample.                |
+|`AppCreationScripts/`  | Scripts to automatically configure Azure AD app registrations.|
+|`Sample/`              | The sample app's code.                       |
+|`Sample/settings.py`   | The sample app's settings. Includes MSAL configurations|
+|`Sample/azure.py`      | The sample app's settings for deploying to Azure (covered in the deployment chapter)|
+|`Sample/context_processors.py`| Some helper functions to display redirect_uri, filter ID tokens for the frontend |
+|`Sample/urls.py`       | The sample app's routes |
+|`Sample/views.py`      | The sample app's settings |
+|`requirements.txt`     | Dependencies required by the app are listed here|
+|`manage.py`            | Django management script|
+|`CHANGELOG.md`         | List of changes to the sample.             |
+|`CONTRIBUTING.md`      | Guidelines for contributing to the sample. |
+|`LICENSE`              | The license for the sample.                |
 
 ## Prerequisites
 
@@ -189,10 +196,10 @@ Open the project in your IDE (like **Visual Studio Code**) to configure the code
 
 - Note the signed-in or signed-out status displayed at the center of the screen.
 - Click the context-sensitive button at the top right (it will read `Sign In` on first run)
-- Follow the instructions on the next page to sign in with an account of your chosen identity provider.
+- Follow the instructions on the next page to sign in with an account in the Azure AD tenant.
+- On the consent screen, note the scopes (Graph permissions) that are being requested.
 - Note the context-sensitive button now says `Sign out` and displays your username to its left.
-- The middle of the screen now has an option to click for **ID Token Details**: click it to see some of the ID token's decoded claims.
-- You also have the option of editing your profile. Click the link to edit details like your display name, place of residence, and profession.
+- The middle of the screen now has an option to click for [**ID Token Details**](https://docs.microsoft.com/azure/active-directory/develop/id-tokens): click it to see some of the ID token's decoded claims.
 - You can also use the button on the top right to sign out.
 - After signing out, click the link to `ID Token Details` to observe how the app displays a `401: unauthorized` error instead of the ID token claims.
 
@@ -231,11 +238,10 @@ In `Sample/settings.py` module:
     ```
 
 - The above code sets up middlwares and hooks up all necessary endpoints for the authentication process into your Django app under a route prefix (`/auth` by default). For example, the redirect endpoint is found at `/auth/redirect`.
-- When a user navigates to `/auth/sign_in` and completes a sign-in attempt, the resulting identity data is put into the session, which can be accessed through the django global **g** object at `g.identity_context_data`.
+- When a user navigates to `/auth/sign_in` and completes a sign-in attempt, the resulting identity data is put into the session, which can be accessed through the request object at `request.identity_context_data`.
 - When an endpoint is decorated with `@ms_identity_web.login_required`, the application only allows requests to the endpoint from authenticated (signed-in) users. If the user is not signed-in, a `401: unauthorized` error is thrown, and the browser is redirected to the 401 handler.
 
     ```python
-    @app.route('/a_protected_route')
     @ms_identity_web.login_required
     def a_protected_route():
       return "if you can see this, you're signed in!"

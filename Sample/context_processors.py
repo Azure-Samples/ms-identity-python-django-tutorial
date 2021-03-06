@@ -4,7 +4,7 @@ from django.conf import settings
 def context(request):
     """ This function adds some app-specific values to the django template context """
     claims = request.identity_context_data._id_token_claims
-    exclude_claims = ['iat', 'exp', 'nbf', 'uti', 'aio']
+    exclude_claims = ['iat', 'exp', 'nbf', 'uti', 'aio', 'rh']
     claims_to_display = {claim: value for claim, value in claims.items() if claim not in exclude_claims}
 
     client_id=settings.AAD_CONFIG.client.client_id
