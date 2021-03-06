@@ -52,11 +52,18 @@ This sample demonstrates a Python Django web app that signs in users and obtains
 
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
-|`AppCreationScripts/`| Scripts to automatically configure Azure AD app registrations.|
-|`app.py`           | The sample app code.                       |
-|`CHANGELOG.md`     | List of changes to the sample.             |
-|`CONTRIBUTING.md`  | Guidelines for contributing to the sample. |
-|`LICENSE`          | The license for the sample.                |
+|`AppCreationScripts/`  | Scripts to automatically configure Azure AD app registrations.|
+|`Sample/`              | The sample app's code.                       |
+|`Sample/settings.py`   | The sample app's settings. Includes MSAL configurations|
+|`Sample/azure.py`      | The sample app's settings for deploying to Azure (covered in the deployment chapter)|
+|`Sample/context_processors.py`| Some helper functions to display redirect_uri, filter ID tokens for the frontend |
+|`Sample/urls.py`| The sample app's routes |
+|`Sample/views.py`| The sample app's settings |
+|`requirements.txt`     | Dependencies required by the app are listed here|
+|`manage.py`            | Django management script|
+|`CHANGELOG.md`         | List of changes to the sample.             |
+|`CONTRIBUTING.md`      | Guidelines for contributing to the sample. |
+|`LICENSE`              | The license for the sample.                |
 
 ## Prerequisites
 
@@ -219,9 +226,9 @@ Were we successful in addressing your learning objective? Consider taking a mome
 - Note the signed-in or signed-out status displayed at the center of the screen.
 - Click the context-sensitive button at the top right (it will read `Sign In` on first run)
 - Follow the instructions on the next page to sign in with an account in the Azure AD tenant.
-- On the consent screen, note the scopes that are being requested.
+- On the consent screen, note the scopes (Graph permissions) that are being requested.
 - Note the context-sensitive button now says `Sign out` and displays your username to its left.
-- The middle of the screen now has an option to click for **ID Token Details**: click it to see some of the ID token's decoded claims.
+- The middle of the screen now has an option to click for [**ID Token Details**](https://docs.microsoft.com/azure/active-directory/develop/id-tokens): click it to see some of the ID token's decoded claims.
 - Click the **Call Graph** button to make a call to MS Graph API's [/users](https://docs.microsoft.comgraph/api/user-list) endpoint and fetch the details of up to 5 users in your tenant.
 - You can also use the button on the top right to sign out.
 - After signing out, click the link to `ID Token Details` to observe that the app displays a `401: unauthorized` error instead of the ID token claims when the user is not authorized.
