@@ -1,22 +1,23 @@
 ---
 page_type: sample
 languages:
-- java
+- python
 products:
 - ms-graph
 - azure-app-services
 - azure-storage
 - azure-key-vault
+- azure-functions
 - azure-active-directory
 - azure-active-directory-b2c
 - microsoft-identity-platform
-description: "Tutorial: Enable your Java Servlet webapp to sign users in, protect endpoints, call APIs with the Microsoft identity platform"
-urlFragment: "ms-identity-java-servlet-webapp-tutorial"
+description: "Tutorial: Enable your Python Django webapp to Sign-in users, protect endpoints, and call APIs with the Microsoft identity platform"
+urlFragment: "ms-identity-python-flask-tutorial"
 ---
 
-# Tutorial: Enable your Java Servlet web app to sign in users and call APIs with the Microsoft identity platform
+# Tutorial: Enable your Python Django web app to sign in users and call APIs with the Microsoft identity platform
 
-The [Microsoft identity platform](https://docs.microsoft.com/azure/active-directory/develop/v2-overview), along with [Azure Active Directory](https://docs.microsoft.com/azure/active-directory/fundamentals/active-directory-whatis) (Azure AD) and [Azure Azure Active Directory B2C](https://docs.microsoft.com/azure/active-directory-b2c/overview) (Azure AD B2C) are central to the **Azure** cloud ecosystem. This tutorial aims to take you through the fundamentals of modern authentication using the [Microsoft Authentication Library (MSAL) for Java](https://github.com/AzureAD/microsoft-authentication-library-for-java)
+The [Microsoft identity platform](https://docs.microsoft.com/azure/active-directory/develop/v2-overview), along with [Azure Active Directory](https://docs.microsoft.com/azure/active-directory/fundamentals/active-directory-whatis) (Azure AD) and [Azure Azure Active Directory B2C](https://docs.microsoft.com/azure/active-directory-b2c/overview) (Azure AD B2C) are central to the **Azure** cloud ecosystem. This tutorial aims to take you through the fundamentals of modern authentication using the [Microsoft Authentication Library (MSAL) for Python](https://github.com/AzureAD/microsoft-authentication-library-for-python)
 
 We recommend following the chapters in successive order. However, the code samples are self-contained, so feel free to pick samples by topics that you may need at the moment.
 
@@ -24,9 +25,8 @@ We recommend following the chapters in successive order. However, the code sampl
 
 ## Prerequisites
 
-- [JDK Version 15](https://jdk.java.net/15/). This sample has been developed on Java 15 but should be compatible with some lower versions.
-- [Maven 3](https://maven.apache.org/download.cgi)
-- [Tomcat 9](https://tomcat.apache.org/download-90.cgi)
+- [Python 3.8](https://www.python.org/downloads/)
+- [A virtual environment](https://docs.python.org/3/tutorial/venv.html) to install python packages into
 - [Visual Studio Code](https://code.visualstudio.com/download)
 - [VS Code Azure Tools Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-node-azure-pack)
 
@@ -34,8 +34,8 @@ Please refer to each chapter's README for sample-specific prerequisites.
 
 ## Recommendations
 
-- Some familiarity with the [Java / Jakarta Servlets](https://projects.eclipse.org/projects/ee4j.servlet)
-- Some familiarity with Linux/OSX terminal or Windows PowerShell
+- Some familiarity with the [Django Web Framework](https://www.djangoproject.com/)
+- Some familiarity with Linux/MacOS terminal or Windows PowerShell
 - [jwt.ms](https://jwt.ms) for inspecting your tokens.
 - [Fiddler](https://www.telerik.com/fiddler) for monitoring your network activity and troubleshooting.
 - Follow the [Azure AD Blog](https://techcommunity.microsoft.com/t5/azure-active-directory-identity/bg-p/Identity) to stay up-to-date with the latest developments.
@@ -57,23 +57,22 @@ Please refer to each sample's README for sample-specific recommendations.
 |----------------|---------------|
 | <img src="./ReadmeFiles/topology.png" width="200"> | [**2.1 Acquire an Access Token from Azure AD and call Microsoft Graph**](./2-Authorization-I/call-graph) </br> Enable your web app to acquire an Access Token to Authorize it to call **Microsoft Graph API**. |
 
-
-### Chapter 3: Restrict access to routes based on group and / or role membership
+<!-- ### Chapter 3: Restrict access to routes based on group and / or role membership
 
 |                |               |
 |----------------|---------------|
 | <img src="./ReadmeFiles/sign-in.png" width="200"> | [**3.1 Acquire an ID Token with the roles claim**](./3-Authorization-II/roles) </br> Enable your web app to acquire an ID Token with the **Roles** claim. Filter access to routes based on the role membership. |
-| <img src="./ReadmeFiles/sign-in.png" width="200"> | [**3.2 Acquire an ID Token with the Groups claim**](./3-Authorization-II/groups) </br> Enable your web app to acquire an ID Token with a **Groups** claim. Filter access to routes based on the role membership. Learn how to call Graph to handle edge cases where the user is a member of too many groups to fit into an ID Token. |
+| <img src="./ReadmeFiles/sign-in.png" width="200"> | [**3.2 Acquire an ID Token with the Groups claim**](./3-Authorization-II/groups) </br> Enable your web app to acquire an ID Token with a **Groups** claim. Filter access to routes based on the role membership. Learn how to call Graph to handle edge cases where the user is a member of too many groups to fit into an ID Token. | -->
 
-### Chapter 4: Deploy your app to Azure
+### Chapter 3: Deploy your app to Azure
 
 |                 |               |
 |-----------------|---------------|
-| <img src="./ReadmeFiles/sign-in.png" width="200"> | [**4.1 Deploy to Azure App Service**](./4-Deployment/) </br> Prepare your app for deployment to Azure App Service. Learn how to package and upload files, configure authentication parameters and use various Azure services for managing your operations. |
+| <img src="./ReadmeFiles/sign-in.png" width="200"> | [**3.1 Deploy to Azure App Service**](./4-Deployment/) </br> Prepare your app for deployment to Azure App Service. Learn how to set up a database, deploy a web app, configure authentication parameters and use various Azure services for managing your operations. |
 
 ## We'd love your feedback!
 
-Were we successful in addressing your learning objective? Consider taking a moment to [share your experience with us](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpURDQwVUxQWENUMlpLUlA0QzdJNVE3TUJRSyQlQCN0PWcu).
+Were we successful in addressing your learning objective? Consider taking a moment to [share your experience with us](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpURUFBUTZCQ0NNWU1FQ09EWklOWlhYREJCVyQlQCN0PWcu).
 
 ## More information
 
