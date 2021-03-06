@@ -10,7 +10,7 @@
     "AADApps": [
       {
         "Id": "webApp",
-        "Name": "python-django-webapp-auth-my-tenant",
+        "Name": "python-django-webapp-authn",
         "Kind": "WebApp",
         "Audience": "AzureADMyOrg",
         "PasswordCredentials": "Auto",

@@ -23,8 +23,8 @@ description: "This sample demonstrates a Python Django web app that signs in use
   - [Step 2: Install project dependencies](#step-2-install-project-dependencies)
 - [Register the sample application(s) with your Azure Active Directory tenant](#register-the-sample-applications-with-your-azure-active-directory-tenant)
   - [Choose the Azure AD tenant where you want to create your applications](#choose-the-azure-ad-tenant-where-you-want-to-create-your-applications)
-  - [Register the web app (python-django-webapp-auth-my-tenant)](#register-the-web-app-python-django-webapp-auth-my-tenant)
-  - [Configure the web app (python-django-webapp-auth-my-tenant) to use your app registration](#configure-the-web-app-python-django-webapp-auth-my-tenant-to-use-your-app-registration)
+  - [Register the web app (python-django-webapp-authn)](#register-the-web-app-python-django-webapp-authn)
+  - [Configure the web app (python-django-webapp-authn) to use your app registration](#configure-the-web-app-python-django-webapp-authn-to-use-your-app-registration)
 - [Running the sample](#running-the-sample)
 - [Explore the sample](#explore-the-sample)
 - [We'd love your feedback!](#wed-love-your-feedback)
@@ -148,12 +148,12 @@ As a first step you'll need to:
 1. Sign in to the [Azure portal](https://portal.azure.com).
 1. If your account is present in more than one Azure AD tenant, select your profile at the top right corner in the menu on top of the page, and then **switch directory** to change your portal session to the desired Azure AD tenant.
 
-### Register the web app (python-django-webapp-auth-my-tenant)
+### Register the web app (python-django-webapp-authn)
 
 1. Navigate to the Microsoft identity platform for developers [App registrations](https://go.microsoft.com/fwlink/?linkid=2083908) page.
 1. Select **New registration**.
 1. In the **Register an application page** that appears, enter your application's registration information:
-   - In the **Name** section, enter a meaningful application name that will be displayed to users of the app, for example `python-django-webapp-auth-my-tenant`.
+   - In the **Name** section, enter a meaningful application name that will be displayed to users of the app, for example `python-django-webapp-authn`.
    - Under **Supported account types**, select **Accounts in this organizational directory only**.
    - In the **Redirect URI (optional)** section, select **Web** in the combo-box and enter the following redirect URI: `http://localhost:8000/auth/redirect`.
 1. Select **Register** to create the application.
@@ -168,7 +168,7 @@ As a first step you'll need to:
    - The generated key value will be displayed when you click the **Add** button. Copy the generated value for use in the steps later.
    - You'll need this key later in your code's configuration files. This key value will not be displayed again, and is not retrievable by any other means, so make sure to note it from the Azure portal before navigating to any other screen or blade.
 
-### Configure the web app (python-django-webapp-auth-my-tenant) to use your app registration
+### Configure the web app (python-django-webapp-authn) to use your app registration
 
 Open the project in your IDE to configure the code.
 
@@ -176,8 +176,8 @@ Open the project in your IDE to configure the code.
 
 1. Open the `aad.config.json` file
 1. Find the string `{enter-your-tenant-id-here}` and replace the existing value with your Azure AD tenant ID.
-1. Find the string `{enter-your-client-id-here}` and replace the existing value with the application ID (clientId) of the `python-django-webapp-auth-my-tenant` application copied from the Azure portal.
-1. Find the string `{enter-your-client-secret-here}` and replace the existing value with the key you saved during the creation of the `python-django-webapp-auth-my-tenant` app, in the Azure portal.
+1. Find the string `{enter-your-client-id-here}` and replace the existing value with the application ID (clientId) of the `python-django-webapp-authn` application copied from the Azure portal.
+1. Find the string `{enter-your-client-secret-here}` and replace the existing value with the key you saved during the creation of the `python-django-webapp-authn` app, in the Azure portal.
 
 </details>
 
@@ -263,7 +263,7 @@ In `Sample/settings.py` class:
 
 ### Under the hood
 
-In this sample, much of the required MSAL for Python configurations are automatically setup using utilities found in [Microsoft Identity Python Samples Common](https://github.com/azure-samples/ms-identity-python-samples-common). For a more direct, hands-on demonstration of the sign-in process without this abstraction, please see the code within this [Python Webapp](https://github.com/azure-samples/ms-identity-python-webapp) sample.
+In this sample, much of the required MSAL for Python configurations are automatically setup using utilities found in [Microsoft Identity Python Samples Common](https://github.com/azure-samples/ms-identity-python-samples-common). For a more direct, hands-on demonstration of the sign-in process without this abstraction, please see the code within this [Python web app](https://github.com/azure-samples/ms-identity-python-webapp) sample.
 
 At a minimum, following parameters need to be provided to the MSAL for Python library:
 
