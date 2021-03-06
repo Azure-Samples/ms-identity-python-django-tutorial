@@ -279,11 +279,11 @@ def call_ms_graph():
     return render(request, 'auth/call-graph.html', context=dict(results=results))
 ```
 
-1. `ms_identity_web.acquire_token_silently()` method leverages MSAL for Python to perform a *silent token acquisition* and stores the result in the session, also accessible via  `ms_identity_web.id_data` or `request.identity_context_data`
+1. `ms_identity_web.acquire_token_silently()` method leverages MSAL for Python to perform a [*silent token acquisition*](https://msal-python.readthedocs.io/en/latest/#msal.PublicClientApplication.acquire_token_silent) and stores the result in the session. Token and other ID data is also accessible via  `ms_identity_web.id_data` or `request.identity_context_data`
 
    1. A silent token acquisition either finds a valid `access_token` with the required scopes in the token cache or uses a stored `refresh_token` to get a new `access_token` from Azure AD.
 
-   1. The scopes herein are defined in the [aad.config.json](./aad.config.json) file, but can be overridden by passing a `scopes=["x","y"]` param to the `ms_identity_web.acquire_token_silently()` method.
+   2. The scopes herein are defined in the [aad.config.json](./aad.config.json) file, but can be overridden by passing a `scopes=["x","y"]` param to the `ms_identity_web.acquire_token_silently()` method.
 
 2. The app then makes a request to the graph endpoint defined in (by default, `https://graph.microsoft.com/v1.0/users`). The request has an Authorization header that carries the user's `access_token` in the format `Bearer access_token_value_here`.
 3. The response is sent to the template for rendering.
