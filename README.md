@@ -8,7 +8,7 @@ products:
   - microsoft-identity-platform
   - msal-python
 name: "Enable your Python Django web app to sign in users and call Microsoft Graph with the Microsoft identity platform"
-urlFragment: "ms-identity-python-django-webapp-authentication"
+urlFragment: "ms-identity-python-django-webapp-call-graph"
 description: "This sample demonstrates a Python Django web app that signs in users to your Azure AD tenant, obtains an access token to call MS Graph with the Microsoft identity platform"
 ---
 # Enable your Python Django web app to sign in users and call Microsoft Graph with the Microsoft identity platform
@@ -306,7 +306,7 @@ def call_ms_graph():
 
 ### Under the hood
 
-In this sample, much of the required MSAL for Python configurations are automatically setup using utilities found in [Microsoft Identity Python Samples Common](https://github.com/azure-samples/ms-identity-python-samples-common). For a more direct, hands-on demonstration of the sign-in process without this abstraction, please see the code within this [Python Webapp](https://github.com/azure-samples/ms-identity-python-webapp) sample.
+In this sample, much of the required MSAL for Python configurations are automatically setup using utilities found in [Microsoft Identity Python Samples Common](https://github.com/azure-samples/ms-identity-python-samples-common). For a more direct, hands-on demonstration of the sign-in process without this abstraction, please see the code within this [Python web app](https://github.com/azure-samples/ms-identity-python-webapp) sample.
 
 At a minimum, following parameters need to be provided to the MSAL for Python library:
 
