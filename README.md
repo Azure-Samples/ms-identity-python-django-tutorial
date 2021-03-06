@@ -6,11 +6,11 @@ products:
   - azure-active-directory  
   - azure-active-directory-b2c
   - microsoft-identity-platform
-name: Enable your Python Django webapp to sign in users to your Azure Active Directory B2C tenant with the Microsoft identity platform
+name: Enable your Python Django web app to sign in users to your Azure Active Directory B2C tenant with the Microsoft identity platform
 urlFragment: ms-identity-b2c-python-django-webapp-authentication
-description: "This sample demonstrates a Python Django webapp that signs in users with Azure Active Directory B2C (Azure AD B2C)"
+description: "This sample demonstrates a Python Django web app that signs in users with Azure Active Directory B2C (Azure AD B2C)"
 ---
-# Enable your Python Django webapp to sign in users to your Azure Active Directory B2C tenant with the Microsoft identity platform
+# Enable your Python Django web app to sign in users to your Azure Active Directory B2C tenant with the Microsoft identity platform
 
 - [Overview](#overview)
 - [Scenario](#scenario)
@@ -23,7 +23,7 @@ description: "This sample demonstrates a Python Django webapp that signs in user
   - [Choose the Azure AD B2C tenant where you want to create your applications](#choose-the-azure-ad-b2c-tenant-where-you-want-to-create-your-applications)
   - [Create User Flows and Custom Policies](#create-user-flows-and-custom-policies)
   - [Add External Identity Providers](#add-external-identity-providers)
-  - [Register the webapp (b2c-python-django-webapp-auth)](#register-the-webapp-b2c-python-django-webapp-auth)
+  - [Register the web app (b2c-python-django-webapp-auth)](#register-the-web-app-b2c-python-django-webapp-auth)
 - [Running the sample](#running-the-sample)
 - [Explore the sample](#explore-the-sample)
 - [We'd love your feedback!](#wed-love-your-feedback)
@@ -39,11 +39,11 @@ description: "This sample demonstrates a Python Django webapp that signs in user
 
 ## Overview
 
-This sample demonstrates a Python Django webapp that authenticates users with Azure Active Directory B2C (Azure AD B2C) using the the [Microsoft Authentication Library \(MSAL\) for Python](https://github.com/AzureAD/microsoft-authentication-library-for-python).
+This sample demonstrates a Python Django web app that authenticates users with Azure Active Directory B2C (Azure AD B2C) using the the [Microsoft Authentication Library \(MSAL\) for Python](https://github.com/AzureAD/microsoft-authentication-library-for-python).
 
 ## Scenario
 
-1. The Web application uses **MSAL for Python** to sign-in a user and obtains an [ID Token](https://docs.microsoft.com/azure/active-directory/develop/id-tokens) from **Azure AD B2C**.
+1. The web application uses **MSAL for Python** to sign-in a user and obtains an [ID Token](https://docs.microsoft.com/azure/active-directory/develop/id-tokens) from **Azure AD B2C**.
 1. The **ID Token** proves that the user has successfully authenticated against an **Azure AD B2C** tenant.
 1. The web application protects one of its routes according to user's authentication status.
 1. The user can sign up for a new account, reset password, or edit user profile information using B2C [user-flows](https://docs.microsoft.com/azure/active-directory-b2c/user-flow-overview)
@@ -134,7 +134,7 @@ You may consider creating [Custom policies in Azure Active Directory B2C](https:
 
 Please refer to: [Tutorial: Add identity providers to your applications in Azure Active Directory B2C](https://docs.microsoft.com/azure/active-directory-b2c/tutorial-add-identity-providers)
 
-### Register the webapp (b2c-python-django-webapp-auth)
+### Register the web app (b2c-python-django-webapp-auth)
 
 1. Navigate to the [Azure portal](https://portal.azure.com) and select the **Azure AD B2C** service.
 1. Select the **App Registrations** blade on the left, then select **New registration**.
@@ -153,7 +153,7 @@ Please refer to: [Tutorial: Add identity providers to your applications in Azure
    - The generated key value will be displayed when you click the **Add** button. Copy the generated value for use in the steps later.
    - You'll need this key later in your code's configuration files. This key value will not be displayed again, and is not retrievable by any other means, so make sure to note it from the Azure portal before navigating to any other screen or blade.
 
-#### Configure the webapp (b2c-python-django-webapp-auth) to use your app registration
+#### Configure the web app (b2c-python-django-webapp-auth) to use your app registration
 
 Open the project in your IDE (like **Visual Studio Code**) to configure the code.
 
@@ -249,7 +249,7 @@ In `Sample/settings.py` module:
 
 ### Under the hood
 
-In this sample, much of the required MSAL for Python configurations are automatically setup using utilities found in [Microsoft Identity Python Samples Common](https://github.com/azure-samples/ms-identity-python-samples-common). For a more direct, hands-on demonstration of the sign-in process without this abstraction, please see the code within this [Python Webapp](https://github.com/azure-samples/ms-identity-python-webapp) sample.
+In this sample, much of the required MSAL for Python configurations are automatically setup using utilities found in [Microsoft Identity Python Samples Common](https://github.com/azure-samples/ms-identity-python-samples-common). For a more direct, hands-on demonstration of the sign-in process without this abstraction, please see the code within this [Python web app](https://github.com/azure-samples/ms-identity-python-webapp) sample.
 
 At a minimum, following parameters need to be provided to the MSAL for Python library:
 
