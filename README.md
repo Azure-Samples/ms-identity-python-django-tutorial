@@ -214,7 +214,6 @@ Open the project in your IDE to configure the code.
 - On the consent screen, note the scopes (Graph permissions) that are being requested.
 - Note the context-sensitive button now says `Sign out` and displays your username to its left.
 - The middle of the screen now has an option to click for [**ID Token Details**](https://docs.microsoft.com/azure/active-directory/develop/id-tokens): click it to see some of the ID token's decoded claims.
-- Click the **Call Graph** button to make a call to MS Graph API's [/users](https://docs.microsoft.comgraph/api/user-list) endpoint and fetch the details of up to 5 users in your tenant.
 - You can also use the button on the top right to sign out.
 - After signing out, click the link to `ID Token Details` to observe that the app displays a `401: unauthorized` error instead of the ID token claims when the user is not authorized.
 
