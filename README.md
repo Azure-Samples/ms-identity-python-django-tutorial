@@ -80,7 +80,8 @@ This sample demonstrates a Python Django web app that authenticates users with A
 From your shell or command line:
 
 ```Shell
-git clone https://github.com/Azure-Samples/ms-identity-b2c-python-django-webapp-authentication.git
+git clone https://github.com/Azure-Samples/ms-identity-b2c-python-django-tutorial.git
+cd 1-Authentication/sign-in-b2c
 ```
 
 or download and extract the repository .zip file.
@@ -94,7 +95,7 @@ or download and extract the repository .zip file.
 - In Linux/OSX via the terminal:
 
 ```Shell
-  cd <project-root-directory> # the folder into which you cloned this project
+  cd <the-direcotory-of-this-readme-file>
   python3 -m venv venv # only required to create the venv if you don't have a venv already
   source venv/bin/activate # activates the venv
   pip install -r requirements.txt
@@ -103,7 +104,7 @@ or download and extract the repository .zip file.
 - In Windows via PowerShell:
 
 ```PowerShell
-  cd <project-root-directory> # the folder into which you cloned this project
+  cd <the-direcotory-of-this-readme-file>
   python3 -m venv venv # only required to create the venv if you don't have a venv already
   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force
   . .\venv\Scripts\Activate.ps1 # activates the venv
@@ -175,7 +176,7 @@ Open the project in your IDE (like **Visual Studio Code**) to configure the code
 - On Linux/OSX via the terminal:
 
    ```Shell
-    # start from the folder in which the sample is cloned into
+    cd <the-direcotory-of-this-readme-file>
     python manage.py migrate
     python manage.py runserver localhost:8000
   ```
@@ -183,7 +184,7 @@ Open the project in your IDE (like **Visual Studio Code**) to configure the code
 - On Windows:
 
   ```PowerShell
-    # start from the folder in which the sample is cloned into
+    cd <the-direcotory-of-this-readme-file>
     python manage.py migrate
     python manage.py runserver localhost:8000
   ```
