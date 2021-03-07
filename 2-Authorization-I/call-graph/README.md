@@ -79,7 +79,8 @@ This sample demonstrates a Python Django web app that signs in users and obtains
 From your shell or command line:
 
 ```Shell
-git clone https://github.com/Azure-Samples/ms-identity-python-django-webapp-call-graph.git
+git clone https://github.com/Azure-Samples/ms-identity-python-django-tutorial.git
+cd 2-Authorization-I/call-graph
 ```
 
 or download and extract the repository .zip file.
@@ -93,7 +94,7 @@ or download and extract the repository .zip file.
 - In Linux/OSX via the terminal:
 
 ```Shell
-  cd <project-root-directory> #the folder into which you cloned the code
+  cd cd <the-direcotory-of-this-readme-file>
   python3 -m venv venv # only required if you don't have a venv already
   source venv/bin/activate
   pip install -r requirements.txt
@@ -102,7 +103,7 @@ or download and extract the repository .zip file.
 - In Windows via PowerShell:
 
 ```PowerShell
-  cd <project-root-directory> #the folder into which you cloned the code
+  cd cd <the-direcotory-of-this-readme-file>
   python3 -m venv venv # only required if you don't have a venv already
   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force
   . .\venv\Scripts\Activate.ps1
@@ -134,6 +135,7 @@ There is one project in this sample. To register the app on the portal, you can:
    ```PowerShell
    cd .\AppCreationScripts\
    .\Configure.ps1
+   cd ..
    ```
 
    > Other ways of running the scripts are described in [App Creation Scripts](./AppCreationScripts/AppCreationScripts.md)
@@ -198,7 +200,7 @@ Open the project in your IDE to configure the code.
 - On Linux/OSX via the terminal:
 
   ```Shell
-    # start from the folder in which the sample is cloned into
+    cd <the-direcotory-of-this-readme-file>
     python manage.py collectstatic
     python manage.py migrate
     python manage.py runserver localhost:8000
@@ -207,7 +209,7 @@ Open the project in your IDE to configure the code.
 - On Windows:
 
   ```PowerShell
-    # start from the folder in which the sample is cloned into
+    cd <the-direcotory-of-this-readme-file>
     python manage.py collectstatic
     python manage.py migrate
     python manage.py runserver localhost:8000
@@ -233,7 +235,7 @@ Were we successful in addressing your learning objective? Consider taking a mome
 - You can also use the button on the top right to sign out.
 - After signing out, click the link to `ID Token Details` to observe that the app displays a `401: unauthorized` error instead of the ID token claims when the user is not authorized.
 
-> :information_source: Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../../issues) page.
+> :information_source: Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../../../../issues) page.
 
 ## About the code
 
@@ -358,7 +360,7 @@ Use [Stack Overflow](https://stackoverflow.com/questions/tagged/msal) to get sup
 Ask your questions on Stack Overflow first and browse existing issues to see if someone has asked your question before.
 Make sure that your questions or comments are tagged with [`azure-active-directory` `ms-identity` `adal` `msal`].
 
-If you find a bug in the sample, please raise the issue on [GitHub Issues](../../issues).
+If you find a bug in the sample, please raise the issue on [GitHub Issues](../../../../issues).
 
 To provide a recommendation, visit the following [User Voice page](https://feedback.azure.com/forums/169401-azure-active-directory).
 
