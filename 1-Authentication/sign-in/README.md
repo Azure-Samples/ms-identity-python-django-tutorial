@@ -248,6 +248,8 @@ In `Sample/settings.py` class:
 1. In the app's `Sample/urls.py` module, the necessary MSAL endpoints are hooked up:
 
     ```python
+    from ms_identity_web.django.msal_views_and_urls import MsalViews
+    ...    
     msal_urls = MsalViews(settings.MS_IDENTITY_WEB).url_patterns()
     ...
     path(f'{settings.AAD_CONFIG.django.auth_endpoints.prefix}/', include(msal_urls)),
