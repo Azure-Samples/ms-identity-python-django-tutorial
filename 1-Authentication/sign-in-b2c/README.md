@@ -80,7 +80,7 @@ This sample demonstrates a Python Django web app that authenticates users with A
 From your shell or command line:
 
 ```Shell
-git clone https://github.com/Azure-Samples/ms-identity-b2c-python-django-tutorial.git
+git clone https://github.com/Azure-Samples/ms-identity-python-django-tutorial.git
 cd 1-Authentication/sign-in-b2c
 ```
 
